@@ -1,12 +1,28 @@
+<template>
+  <header>
+    <a href="index.html"><img class="logo" src="./assets/media/logo.png" alt="Page Logo."/></a>
+    <SearchBar v-on:search="setCharacter"/>
+  </header>
+  <div class="body-main">
+    <aside>
+      <Filters v-bind:filters="filters"></Filters>
+    </aside>
+    <main>
+      <CharacterCard v-for="character in characters" v-bind:key="character.id" v-bind:character="character" />
+    </main>
+  </div>
+</template>
+
 <script>
 import SearchBar from "@/components/SearchBar.vue";
 import CharacterCard from "@/components/CharacterCard.vue";
+import Filters from "@/components/Filters.vue";
 
 export default {
   components: {
+    Filters,
     CharacterCard,
-    SearchBar
-
+    SearchBar,
   },
   data() {
     return {
@@ -15,6 +31,10 @@ export default {
       url: 'https://rickandmortyapi.com/api/character/',
       page: 1,
       hasNext: false,
+      filters: {
+        status: ['Alive', 'Dead', 'Unknown'],
+        gender: ['Male', 'Female', 'Unknown']
+      },
     }
   },
   watch: {
@@ -70,21 +90,6 @@ export default {
   }
 }
 </script>
-
-<template>
-  <header>
-    <a href="index.html"><img class="logo" src="./assets/media/logo.png" alt="Page Logo."/></a>
-    <SearchBar v-on:search="setCharacter"/>
-  </header>
-  <div class="body-main">
-    <aside>
-
-    </aside>
-    <main>
-      <CharacterCard v-for="character in characters" v-bind:key="character.id" v-bind:character="character" />
-    </main>
-  </div>
-</template>
 
 <style scoped>
   header {
