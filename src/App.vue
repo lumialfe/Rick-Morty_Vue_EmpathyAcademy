@@ -146,5 +146,5 @@ export default {
 
     .card-image {
       max-width: 90%;
-      margin: 0px auto auto; } }
+      margin: 0 auto auto; } }
 </style>
