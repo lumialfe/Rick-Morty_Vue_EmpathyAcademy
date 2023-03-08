@@ -1,8 +1,10 @@
 <script>
 import SearchBar from "@/components/SearchBar.vue";
+import CharacterCard from "@/components/CharacterCard.vue";
 
 export default {
   components: {
+    CharacterCard,
     SearchBar
 
   },
@@ -49,11 +51,23 @@ export default {
 
     </aside>
     <main>
-
+      <CharacterCard v-for="character in characters" v-bind:key="character.id" v-bind:character="character" />
     </main>
   </div>
 </template>
 
 <style scoped>
+  header {
+    grid-area: header;
+    background-color: #efdfd4;
+    padding: 0 2vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
 
+  .logo {
+    width: 8rem;
+  }
 </style>

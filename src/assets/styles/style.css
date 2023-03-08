@@ -8,29 +8,6 @@ body {
   grid-row-gap: 1vw;
   grid-template-areas: "header" "bodymain"; }
 
-header {
-  grid-area: header;
-  background-color: #efdfd4;
-  padding: 0 2vw;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center; }
-
-.logo {
-  width: 8rem; }
-
-.header-searchbar {
-  width: 40vw;
-  border-radius: 500px;
-  height: auto;
-  padding: 1rem 2rem;
-  border: none;
-  text-align: right;
-  background: white url("../media/search-icon.svg") no-repeat 15px center;
-  background-size: 1rem;
-  font-family: "Montserrat", sans-serif; }
-
 .header-dropdown {
   display: none; }
 
