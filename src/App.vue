@@ -13,6 +13,7 @@ export default {
       character: '',
       characters: [],
       url: 'https://rickandmortyapi.com/api/character/',
+      page: 1,
     }
   },
   watch: {
@@ -31,12 +32,29 @@ export default {
             console.log(this.characters);
           });
     },
+    scroll () {
+      window.onscroll = () => {
+        let bottomOfWindow = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight === document.documentElement.offsetHeight;
+        if (bottomOfWindow) {
+          this.loadMore();
+        }
+      }
+    },
+    loadMore() {
+      this.page += 1;
+      fetch(this.url + '?name=' + this.character + "&page=" + this.page).then(response => response.json())
+          .then(data => {
+            for (let i = 20 * this.page - 20; i < 20 * this.page; i++) {
+              this.characters[i] = data.results[i - 20 * (this.page - 1)];
+            }
+          });
+    }
   },
   created() {
     this.searchCharacters();
   },
   mounted() {
-
+    this.scroll();
   }
 }
 </script>
