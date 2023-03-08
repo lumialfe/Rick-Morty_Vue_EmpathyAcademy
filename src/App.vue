@@ -10,7 +10,7 @@ export default {
   },
   data() {
     return {
-      character: '',
+      name: '',
       characters: [],
       url: 'https://rickandmortyapi.com/api/character/',
       page: 1,
@@ -24,10 +24,10 @@ export default {
   },
   methods: {
     setCharacter(character) {
-      this.character = character;
+      this.name = character;
     },
     searchCharacters() {
-      fetch(this.url + '?name=' + this.character).then(response => response.json())
+      fetch(this.url + '?name=' + this.name).then(response => response.json())
           .then(data => {
             this.hasNext = data.info.next != null;
             this.characters = data.results;
@@ -43,7 +43,7 @@ export default {
     },
     loadMore() {
       this.page += 1;
-      fetch(this.url + '?name=' + this.character + "&page=" + this.page).then(response => response.json())
+      fetch(this.url + '?name=' + this.name + "&page=" + this.page).then(response => response.json())
           .then(data => {
             this.hasNext = data.info.next;
             for (let i = 20 * this.page - 20; i < 20 * this.page; i++) {

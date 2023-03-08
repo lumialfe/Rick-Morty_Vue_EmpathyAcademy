@@ -3,13 +3,22 @@
     <img class='card-image' loading='lazy' v-bind:src="character.image" v-bind:alt="character.name"/>
     <p class="card-name">{{character.name}}</p>
     <p class="card-text">
-      Status: {{character.status}}
-      <br/>
-      Gender: {{character.gender}}
-      <br/>
-      Species: {{character.species}}
-      <br/>
-      Origin: {{character.origin.name}}
+      <span class="card-text-span">
+              Status: {{character.status}}
+
+      </span>
+      <span class="card-text-span">
+              Gender: {{character.gender}}
+
+      </span>
+      <span class="card-text-span">
+              Species: {{character.species}}
+
+      </span>
+      <span class="card-text-span">
+              Origin: {{character.origin.name}}
+
+      </span>
     </p>
   </div>
 </template>
@@ -41,11 +50,37 @@ export default {
     grid-area: name;
     font-size: 200%;
     font-weight: bold;
+
+    margin: 1vw;
   }
 
   .card-text {
     grid-area: text;
     text-align: left;
-    padding-left: 1vw;
+    display: flex;
+    flex-flow: column nowrap;
+
+    margin: 0;
+  }
+
+  .card-text-span {
+    text-align: left;
+    margin-left: 1vw;
+  }
+
+  @media only screen and (max-width: 640px) {
+    .card-image {
+      max-width: 80%;
+      margin: 0 auto auto;
+    }
+
+    .card-name {
+      font-size: 110%;
+    }
+
+    .card-text-span {
+      margin-left: 3vw;
+      font-size: 70%;
+    }
   }
 </style>
