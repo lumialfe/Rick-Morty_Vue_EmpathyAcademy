@@ -1,14 +1,16 @@
-# rick-morty_vue
+# Rick & Morty Search Page with Vue 3
 
-This template should help get you started developing with Vue 3 in Vite.
+This is the second exercise of the Frontend Path of the Acadamy Program of [Empathy.co](https://empathy.co/). In it we tried to replicate the page donde for [Exercise 1](https://github.com/lumialfe/Rick-Morty_EmpathyAcademy) using the Framework [Vue 3](https://vuejs.org/).
 
-## Recommended IDE Setup
+The idea was to create a Web Page that, through calls to an [API](https://rickandmortyapi.com/), allowed the user to search for different characters, displaying their images and information in a responsive fashion.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## Deployment
 
-## Customize configuration
+This page is not currently deployed on GitHub Pages.
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+## Preview
+
+<img width="1440" alt="Screenshot 2023-03-08 at 12 41 08" src="https://user-images.githubusercontent.com/60442261/223704314-efb1207c-ca25-4d47-a3d8-80a1133e4881.png">
 
 ## Project Setup
 
