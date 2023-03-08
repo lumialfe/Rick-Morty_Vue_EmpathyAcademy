@@ -1,16 +1,4 @@
 <template>
-<!--  let img = "<img class='card-image' loading='lazy' src='" + character.image + "' alt='" + character.name + "'/>"
-  let name = "<p class='card-name'>" + character.name + "</p>"
-  let description = "<p class='card-text'>Gender: " + character.gender + "<br/>"
-  + "Status: " + character.status + "</br>"
-  + "</p>"
-
-
-  let tooltip = "<p class='card-extradesc'>" + "Species: " + character.species + "<br/>"
-  + "Origin: " + character.origin.name + "<br/>"
-  + "</p>"
-  return "<div class='main-card'>" + img + name + description + tooltip + "</div>"-->
-
   <div class='main-card'>
     <img class='card-image' loading='lazy' v-bind:src="character.image" v-bind:alt="character.name"/>
     <p class="card-name">{{character.name}}</p>
@@ -34,23 +22,30 @@ export default {
 
 <style scoped>
   .main-card {
-    padding: 2vh 1vw;
     background-color: white;
-    justify-content: center;
+    padding: 2.5vh 1vw;
     display: grid;
     grid-template-areas: "image" "name" "text";
-    border-radius: 25px; }
+    border-radius: 25px;
+
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  }
 
   .card-image {
     grid-area: image;
     width: 100%;
     border-radius: 25px;
-    margin-top: 1vh; }
+  }
 
   .card-name {
     grid-area: name;
-    font-size: 150%; }
+    font-size: 200%;
+    font-weight: bold;
+  }
 
   .card-text {
-    grid-area: text; }
+    grid-area: text;
+    text-align: left;
+    padding-left: 1vw;
+  }
 </style>

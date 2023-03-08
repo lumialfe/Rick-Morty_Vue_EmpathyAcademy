@@ -14,11 +14,12 @@ export default {
       characters: [],
       url: 'https://rickandmortyapi.com/api/character/',
       page: 1,
+      hasNext: false,
     }
   },
   watch: {
     character() {
-      this.searchCharacters();
+      this.debounce(this.searchCharacters(), 500);
     }
   },
   methods: {
@@ -28,14 +29,14 @@ export default {
     searchCharacters() {
       fetch(this.url + '?name=' + this.character).then(response => response.json())
           .then(data => {
+            this.hasNext = data.info.next != null;
             this.characters = data.results;
-            console.log(this.characters);
           });
     },
     scroll () {
       window.onscroll = () => {
         let bottomOfWindow = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight === document.documentElement.offsetHeight;
-        if (bottomOfWindow) {
+        if (bottomOfWindow && this.hasNext) {
           this.loadMore();
         }
       }
@@ -44,10 +45,21 @@ export default {
       this.page += 1;
       fetch(this.url + '?name=' + this.character + "&page=" + this.page).then(response => response.json())
           .then(data => {
+            this.hasNext = data.info.next;
             for (let i = 20 * this.page - 20; i < 20 * this.page; i++) {
               this.characters[i] = data.results[i - 20 * (this.page - 1)];
             }
           });
+    },
+    debounce(func, delay) {
+      let debounceTimer
+      return function () {
+        const context = this
+        const args = arguments
+        clearTimeout(debounceTimer)
+        debounceTimer
+            = setTimeout(() => func.apply(context, args), delay)
+      }
     }
   },
   created() {
