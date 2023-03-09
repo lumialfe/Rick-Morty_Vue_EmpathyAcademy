@@ -15,7 +15,10 @@
     </aside>
     <span class="body-main-noresults"
           v-if="characters.length == 0">Oops! Nothing to see here. <br/> Please try again.</span>
-    <CharacterGrid v-else v-bind:characters="characters"></CharacterGrid>
+    <CharacterGrid>
+      <CharacterCard v-for="character in characters" v-bind:key="character.id"
+                     v-bind:character="character"></CharacterCard>
+    </CharacterGrid>
   </div>
 </template>
 
@@ -24,9 +27,11 @@
 import SearchBar from "@/components/SearchBar.vue";
 import Filters from "@/components/Filters.vue";
 import CharacterGrid from "@/components/CharacterGrid.vue";
+import CharacterCard from "@/components/CharacterCard.vue";
 
 export default {
   components: {
+    CharacterCard,
     CharacterGrid,
     Filters,
     SearchBar,

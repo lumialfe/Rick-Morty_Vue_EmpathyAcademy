@@ -1,7 +1,6 @@
 <template>
   <main>
-    <CharacterCard v-for="character in characters" v-bind:key="character.id"
-                   v-bind:character="character"></CharacterCard>
+    <slot></slot>
   </main>
 </template>
 
