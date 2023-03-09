@@ -14,23 +14,21 @@
       <Filters v-bind:filters="filters"></Filters>
     </aside>
     <span class="body-main-noresults"
-          v-if="characters.length == 0">Oops! Nothing to see here.<br/> Please try again.</span>
-    <main v-else>
-      <CharacterCard v-for="character in characters" v-bind:key="character.id" v-bind:character="character"/>
-    </main>
+          v-if="characters.length == 0">Oops! Nothing to see here. <br/> Please try again.</span>
+    <CharacterGrid v-else v-bind:characters="characters"></CharacterGrid>
   </div>
 </template>
 
 <!--suppress JSDeprecatedSymbols -->
 <script>
 import SearchBar from "@/components/SearchBar.vue";
-import CharacterCard from "@/components/CharacterCard.vue";
 import Filters from "@/components/Filters.vue";
+import CharacterGrid from "@/components/CharacterGrid.vue";
 
 export default {
   components: {
+    CharacterGrid,
     Filters,
-    CharacterCard,
     SearchBar,
   },
   data() {
@@ -178,13 +176,6 @@ header {
     padding: 1vh 1vw;
     border-radius: 25px;
     height: fit-content;
-  }
-
-  main {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(50px, 1fr));
-    grid-row-gap: 2vh;
-    grid-column-gap: 1vw;
   }
 
   .body-main-noresults {
