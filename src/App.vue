@@ -13,9 +13,9 @@
     <aside>
       <Filters v-bind:filters="filters"></Filters>
     </aside>
-    <main>
-      <h1 v-if="characters.length == 0">No Results Found</h1>
-      <CharacterCard v-else v-for="character in characters" v-bind:key="character.id" v-bind:character="character" />
+    <span class="body-main-noresults" v-if="characters.length == 0">Oops! Nothing to see here.<br/> Please try again.</span>
+    <main v-else>
+      <CharacterCard v-for="character in characters" v-bind:key="character.id" v-bind:character="character" />
     </main>
   </div>
 </template>
@@ -181,6 +181,12 @@ export default {
 
   #mobilefilters-component {
     display: none;
+  }
+
+  .body-main-noresults {
+    text-align: center;
+    font-weight: bold;
+    font-size: 200%;
   }
 
   @media only screen and (max-width: 640px) {
