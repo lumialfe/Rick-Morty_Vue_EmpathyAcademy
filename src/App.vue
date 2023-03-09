@@ -3,6 +3,12 @@
     <a href="index.html"><img class="logo" src="./assets/media/logo.png" alt="Page Logo."/></a>
     <SearchBar v-on:search="setCharacter"/>
   </header>
+  <div class="body-mobilefilters">
+    <button class="mobilefilters-button" v-on:click="changeMobileFilterVisibility">
+      Filter
+    </button>
+    <Filters id="mobilefilters-component" v-bind:filters="filters"></Filters>
+  </div>
   <div class="body-main">
     <aside>
       <Filters v-bind:filters="filters"></Filters>
@@ -38,6 +44,7 @@ export default {
         status: ['Alive', 'Dead', 'Unknown'],
         gender: ['Male', 'Female', 'Unknown']
       },
+      isVisibleMobileFilters: false,
     }
   },
   watch: {
@@ -118,6 +125,10 @@ export default {
         this.gender = checkboxValue;
       }
     },
+    changeMobileFilterVisibility() {
+      document.getElementById("mobilefilters-component").style.display = this.isVisibleMobileFilters ? "none" : "block";
+      this.isVisibleMobileFilters = !this.isVisibleMobileFilters;
+    }
   },
   created() {
     this.searchCharacters();
@@ -163,6 +174,14 @@ export default {
     grid-column-gap: 1vw; }
 
 
+  .body-mobilefilters {
+    display: none;
+  }
+
+  #mobilefilters-component {
+    display: none;
+  }
+
   @media only screen and (max-width: 640px) {
     main {
       grid-template-columns: repeat(2, minmax(50px, 1fr));
@@ -179,14 +198,8 @@ export default {
       grid-template-rows: 1fr auto auto;
       grid-template-areas: "header" "mobilefilters" "bodymain"; }
 
-    .header-dropdown {
-      grid-area: mobilefilters;
-      display: block; }
-
-    .body-mobile-filters {
-      display: none; }
-
-    .card-image {
-      max-width: 90%;
-      margin: 0 auto auto; } }
+    .body-mobilefilters {
+      display: block;
+    }
+  }
 </style>
