@@ -1,5 +1,5 @@
 <template>
-  <input class="filter-input" type="radio" v-on:change="$emit('clickCheckbox',$event)" name="status-filter"/>
+  <input type="radio" v-on:change="$emit('clickCheckbox',$event)" name="status-filter"/>
   <label>
     <slot></slot>
   </label>
@@ -10,8 +10,5 @@ export default {
 }
 </script>
 
-<style scoped>
-.filter-input:checked+label {
-
-}
+<style scoped lang="scss">
 </style>

@@ -2,16 +2,16 @@
 <template>
   <div class="aside__filters">
     <h2>Filters</h2>
-    <span>Gender</span>
+    <span class="aside__filters-title">Gender</span>
     <FilterList v-bind:filters="filters.gender" v-slot="slotProps">
       <GenderFilter v-on:clickCheckbox="changeGender(slotProps.filter)">{{ slotProps.filter }}
       </GenderFilter>
     </FilterList>
-    <span>Status</span>
+    <span class="aside__filters-title">Status</span>
     <FilterList v-bind:filters="filters.status" v-slot="slotProps">
       <StatusFilter v-on:clickCheckbox="changeStatus(slotProps.filter)">{{ slotProps.filter }}</StatusFilter>
     </FilterList>
-    <button v-on:click="resetAll">Clear Filters</button>
+    <button class="aside__filters-button" v-on:click="resetAll">Clear Filters</button>
   </div>
 </template>
 
@@ -41,5 +41,10 @@ export default {
 <style scoped>
 .aside__filters {
   text-align: center;
+}
+
+.aside__filters-title {
+  font-size: 125%;
+  font-weight: bold;
 }
 </style>

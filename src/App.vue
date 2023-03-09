@@ -13,9 +13,10 @@
     <aside>
       <Filters v-bind:filters="filters"></Filters>
     </aside>
-    <span class="body-main-noresults" v-if="characters.length == 0">Oops! Nothing to see here.<br/> Please try again.</span>
+    <span class="body-main-noresults"
+          v-if="characters.length == 0">Oops! Nothing to see here.<br/> Please try again.</span>
     <main v-else>
-      <CharacterCard v-for="character in characters" v-bind:key="character.id" v-bind:character="character" />
+      <CharacterCard v-for="character in characters" v-bind:key="character.id" v-bind:character="character"/>
     </main>
   </div>
 </template>
@@ -64,20 +65,20 @@ export default {
       this.name = character;
     },
     searchCharacters() {
-      fetch(this.url  + "?page=" + this.page +
-            (this.name != "" ? ('&name=' + this.name) : "") +
-            (this.status != "" ? ("&status=" + this.status) : "") +
-            (this.gender != "" ? ("&gender=" + this.gender) : ""))
+      fetch(this.url + "?page=" + this.page +
+          (this.name != "" ? ('&name=' + this.name) : "") +
+          (this.status != "" ? ("&status=" + this.status) : "") +
+          (this.gender != "" ? ("&gender=" + this.gender) : ""))
           .then(response => response.json()).then(data => {
-            this.hasNext = data.info.next != null;
-            this.characters = data.results;
-          })
+        this.hasNext = data.info.next != null;
+        this.characters = data.results;
+      })
           .catch(ex => {
             console.log(ex);
             this.characters = [];
           });
     },
-    scroll () {
+    scroll() {
       window.onscroll = () => {
         let bottomOfWindow = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight === document.documentElement.offsetHeight;
         if (bottomOfWindow && this.hasNext) {
@@ -87,16 +88,16 @@ export default {
     },
     loadMore() {
       this.page += 1;
-      fetch(this.url  + "?page=" + this.page +
+      fetch(this.url + "?page=" + this.page +
           (this.name != "" ? ('&name=' + this.name) : "") +
           (this.status != "" ? ("&status=" + this.status) : "") +
           (this.gender != "" ? ("&gender=" + this.gender) : ""))
           .then(response => response.json()).then(data => {
-            this.hasNext = data.info.next;
-            for (let i = 20 * this.page - 20; i < 20 * this.page; i++) {
-              this.characters[i] = data.results[i - 20 * (this.page - 1)];
-            }
-          })
+        this.hasNext = data.info.next;
+        for (let i = 20 * this.page - 20; i < 20 * this.page; i++) {
+          this.characters[i] = data.results[i - 20 * (this.page - 1)];
+        }
+      })
           .catch(ex => {
             console.log(ex);
             this.characters = [];
@@ -140,47 +141,50 @@ export default {
 }
 </script>
 
-<style scoped>
-  header {
-    grid-area: header;
-    background-color: #efdfd4;
-    padding: 0 2vw;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center; }
+<style lang="scss">
+header {
+  grid-area: header;
+  background-color: #efdfd4;
+  padding: 0 2vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 
   .logo {
-    width: 8rem; }
+    width: 8rem;
+  }
+}
 
-  .body-main {
-    grid-area: bodymain;
-    display: grid;
-    grid-template-columns: 10% auto;
-    grid-column-gap: 1vw;
-    grid-row-gap: 1vw;
-    padding: 2vh 1vw; }
+.body-mobilefilters {
+  display: none;
+
+  #mobilefilters-component {
+    display: none;
+  }
+}
+
+.body-main {
+  grid-area: bodymain;
+  display: grid;
+  grid-template-columns: 10% auto;
+  grid-column-gap: 1vw;
+  grid-row-gap: 1vw;
+  padding: 2vh 1vw;
 
   aside {
     text-align: left;
     background-color: #efdfd4;
     padding: 1vh 1vw;
     border-radius: 25px;
-    height: fit-content; }
+    height: fit-content;
+  }
 
   main {
     display: grid;
     grid-template-columns: repeat(5, minmax(50px, 1fr));
     grid-row-gap: 2vh;
-    grid-column-gap: 1vw; }
-
-
-  .body-mobilefilters {
-    display: none;
-  }
-
-  #mobilefilters-component {
-    display: none;
+    grid-column-gap: 1vw;
   }
 
   .body-main-noresults {
@@ -188,25 +192,30 @@ export default {
     font-weight: bold;
     font-size: 200%;
   }
+}
 
-  @media only screen and (max-width: 640px) {
-    main {
-      grid-template-columns: repeat(2, minmax(50px, 1fr));
-      grid-column-gap: 2vw;
-      grid-row-gap: 1vh; }
-
-    .body-main {
-      grid-template-columns: 100%; }
-
-    aside {
-      display: none; }
-
-    body {
-      grid-template-rows: 1fr auto auto;
-      grid-template-areas: "header" "mobilefilters" "bodymain"; }
+@media only screen and (max-width: 640px) {
+  body {
+    grid-template-rows: 1fr auto auto;
+    grid-template-areas: "header" "mobilefilters" "bodymain";
 
     .body-mobilefilters {
       display: block;
     }
+
+    .body-main {
+      grid-template-columns: 100%;
+
+      main {
+        grid-template-columns: repeat(2, minmax(50px, 1fr));
+        grid-column-gap: 2vw;
+        grid-row-gap: 1vh;
+      }
+    }
+
+    aside {
+      display: none;
+    }
   }
+}
 </style>

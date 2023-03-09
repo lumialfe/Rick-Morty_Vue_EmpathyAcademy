@@ -6,7 +6,8 @@ body {
   display: grid;
   grid-template-rows: 1fr auto;
   grid-row-gap: 1vw;
-  grid-template-areas: "header" "bodymain"; }
+  grid-template-areas: "header" "bodymain";
+}
 
 button {
   font-family: "Montserrat", sans-serif;
@@ -17,12 +18,16 @@ button {
   border-radius: 15px;
   margin-top: 3vh;
   width: 80%;
-  min-height: 5vh; }
-  button :hover {
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; }
-  button :active {
-    opacity: 60%; }
+  min-height: 5vh;
 
-/*# sourceMappingURL=style.css.map */
+  :hover {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+;
+
+  :active {
+    opacity: 60%;
+  }
+}
 
 /*# sourceMappingURL=style.css.map */

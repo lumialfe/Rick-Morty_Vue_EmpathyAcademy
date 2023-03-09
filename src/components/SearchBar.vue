@@ -9,7 +9,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .header-searchbar {
   width: 40vw;
   border-radius: 500px;
