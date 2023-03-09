@@ -8,7 +8,8 @@
       <Filters v-bind:filters="filters"></Filters>
     </aside>
     <main>
-      <CharacterCard v-for="character in characters" v-bind:key="character.id" v-bind:character="character" />
+      <h1 v-if="characters.length == 0">No Results Found</h1>
+      <CharacterCard v-else v-for="character in characters" v-bind:key="character.id" v-bind:character="character" />
     </main>
   </div>
 </template>
@@ -27,6 +28,8 @@ export default {
   data() {
     return {
       name: '',
+      gender: '',
+      status: '',
       characters: [],
       url: 'https://rickandmortyapi.com/api/character/',
       page: 1,
@@ -38,19 +41,32 @@ export default {
     }
   },
   watch: {
-    character() {
+    name() {
       this.debounce(this.searchCharacters(), 500);
-    }
+    },
+    status() {
+      this.searchCharacters();
+    },
+    gender() {
+      this.searchCharacters();
+    },
   },
   methods: {
     setCharacter(character) {
       this.name = character;
     },
     searchCharacters() {
-      fetch(this.url + '?name=' + this.name).then(response => response.json())
-          .then(data => {
+      fetch(this.url  + "?page=" + this.page +
+            (this.name != "" ? ('&name=' + this.name) : "") +
+            (this.status != "" ? ("&status=" + this.status) : "") +
+            (this.gender != "" ? ("&gender=" + this.gender) : ""))
+          .then(response => response.json()).then(data => {
             this.hasNext = data.info.next != null;
             this.characters = data.results;
+          })
+          .catch(ex => {
+            console.log(ex);
+            this.characters = [];
           });
     },
     scroll () {
@@ -63,13 +79,20 @@ export default {
     },
     loadMore() {
       this.page += 1;
-      fetch(this.url + '?name=' + this.name + "&page=" + this.page).then(response => response.json())
-          .then(data => {
+      fetch(this.url  + "?page=" + this.page +
+          (this.name != "" ? ('&name=' + this.name) : "") +
+          (this.status != "" ? ("&status=" + this.status) : "") +
+          (this.gender != "" ? ("&gender=" + this.gender) : ""))
+          .then(response => response.json()).then(data => {
             this.hasNext = data.info.next;
             for (let i = 20 * this.page - 20; i < 20 * this.page; i++) {
               this.characters[i] = data.results[i - 20 * (this.page - 1)];
             }
-          });
+          })
+          .catch(ex => {
+            console.log(ex);
+            this.characters = [];
+          });;
     },
     debounce(func, delay) {
       let debounceTimer
@@ -80,7 +103,21 @@ export default {
         debounceTimer
             = setTimeout(() => func.apply(context, args), delay)
       }
-    }
+    },
+    changeStatus(checkboxValue) {
+      if (this.status === checkboxValue) {
+        this.status = '';
+      } else {
+        this.status = checkboxValue;
+      }
+    },
+    changeGender(checkboxValue) {
+      if (this.gender === checkboxValue) {
+        this.gender = '';
+      } else {
+        this.gender = checkboxValue;
+      }
+    },
   },
   created() {
     this.searchCharacters();
