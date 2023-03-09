@@ -1,3 +1,4 @@
+<!--suppress JSUnresolvedFunction -->
 <template>
   <div class="aside__filters">
     <h2>Filters</h2>

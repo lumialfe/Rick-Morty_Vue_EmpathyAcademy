@@ -20,6 +20,7 @@
   </div>
 </template>
 
+<!--suppress JSDeprecatedSymbols -->
 <script>
 import SearchBar from "@/components/SearchBar.vue";
 import CharacterCard from "@/components/CharacterCard.vue";
@@ -99,7 +100,7 @@ export default {
           .catch(ex => {
             console.log(ex);
             this.characters = [];
-          });;
+          });
     },
     debounce(func, delay) {
       let debounceTimer

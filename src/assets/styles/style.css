@@ -8,9 +8,6 @@ body {
   grid-row-gap: 1vw;
   grid-template-areas: "header" "bodymain"; }
 
-.header-dropdown {
-  display: none; }
-
 button {
   background-color: white;
   width: 100%;
