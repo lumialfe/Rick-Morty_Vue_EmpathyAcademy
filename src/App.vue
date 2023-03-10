@@ -16,8 +16,10 @@
     <span class="body-main-noresults"
           v-if="characters.length == 0">Oops! Nothing to see here. <br/> Please try again.</span>
     <CharacterGrid>
-      <CharacterCard v-for="character in characters" v-bind:key="character.id"
+      <TransitionGroup name="list">
+        <CharacterCard v-for="character in characters" v-bind:key="character.id"
                      v-bind:character="character"></CharacterCard>
+      </TransitionGroup>
     </CharacterGrid>
   </div>
 </template>
@@ -145,6 +147,18 @@ export default {
 </script>
 
 <style lang="scss">
+
+.list-enter-active,
+.list-leave-active {
+  transition: all .5s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+
 header {
   grid-area: header;
   background-color: #efdfd4;

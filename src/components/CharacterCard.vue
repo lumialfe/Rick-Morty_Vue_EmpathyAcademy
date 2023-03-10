@@ -1,26 +1,26 @@
 <template>
-  <div class='main-card'>
-    <img class='card-image' loading='lazy' v-bind:src="character.image" v-bind:alt="character.name"/>
-    <p class="card-name">{{ character.name }}</p>
-    <p class="card-text">
+    <div class='main-card'>
+      <img class='card-image' loading='lazy' v-bind:src="character.image" v-bind:alt="character.name"/>
+      <p class="card-name">{{ character.name }}</p>
+      <p class="card-text">
       <span class="card-text-span">
               Status: {{ character.status }}
 
       </span>
-      <span class="card-text-span">
+        <span class="card-text-span">
               Gender: {{ character.gender }}
 
       </span>
-      <span class="card-text-span">
+        <span class="card-text-span">
               Species: {{ character.species }}
 
       </span>
-      <span class="card-text-span">
+        <span class="card-text-span">
               Origin: {{ character.origin.name }}
 
       </span>
-    </p>
-  </div>
+      </p>
+    </div>
 </template>
 
 <script>
@@ -67,7 +67,6 @@ export default {
     }
   }
 }
-
 
 @media only screen and (max-width: 640px) {
   .card-image {
