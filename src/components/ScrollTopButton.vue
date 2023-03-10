@@ -1,5 +1,7 @@
 <template>
-    <button @click="toTop">^</button>
+    <button @click="toTop">
+      <img src="../assets/media/backtop.png" width="50px"/>
+    </button>
 </template>
 
 <script>
@@ -19,17 +21,18 @@ export default {
 
 <style scoped lang="scss">
 button {
-  background: white;
-  border: none;
-  border-radius: 500px;
-  width: 50px;
-  height: 50px;
-  position: fixed;
-  bottom: 25px;
-  left: 25px;
-
-  :active {
-    opacity: 60%;
+  :hover {
+    border-radius: 500px;
+  }
+  img {
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    bottom: 25px;
+    left: 25px;
+    :hover {
+      opacity: 69%;
+    }
   }
 }
 </style>
