@@ -10,7 +10,7 @@ This page is not currently deployed on GitHub Pages.
 
 ## Preview
 
-![Screenshot 2023-03-09 at 11 26 09](https://user-images.githubusercontent.com/60442261/223996340-10a32c6c-3bcd-4699-a19b-b6e3aaa77e9c.png)
+![Screenshot 2023-03-10 at 10 51 03](https://user-images.githubusercontent.com/60442261/224284294-20082cce-0b39-45cf-a894-04d22813fa99.png)
 
 ## Project Setup
 
