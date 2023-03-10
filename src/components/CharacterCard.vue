@@ -75,11 +75,10 @@ export default {
   }
 
   .card-name {
-    font-size: 110%;
-
+    font-size: 1rem !important;
     .card-text-span {
       margin-left: 3vw;
-      font-size: 70%;
+      font-size: 50%;
     }
   }
 
