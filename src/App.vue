@@ -1,3 +1,4 @@
+<!--suppress ALL, CssUnusedSymbol -->
 <template>
   <header>
     <a href="index.html"><img class="logo" src="./assets/media/logo.png" alt="Page Logo."/></a>
