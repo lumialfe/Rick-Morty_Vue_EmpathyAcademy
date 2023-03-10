@@ -5,7 +5,7 @@
   </header>
   <div class="body-mobilefilters">
     <button class="mobilefilters-button" v-on:click="changeMobileFilterVisibility">
-      Filter
+      Filters
     </button>
     <Filters id="mobilefilters-component" v-bind:filters="filters"></Filters>
   </div>
@@ -220,6 +220,12 @@ header {
 
     .body-mobilefilters {
       display: block;
+      margin: auto;
+      width: 80%;
+    }
+
+    .mobilefilters-button {
+      width: 50%;
     }
 
     .body-main {

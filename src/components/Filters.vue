@@ -41,10 +41,18 @@ export default {
 <style scoped>
 .aside__filters {
   text-align: center;
+  padding-top: 3vh;
+  font-size: 90%;
 }
 
 .aside__filters-title {
   font-size: 125%;
   font-weight: bold;
+}
+
+@media only screen and (max-width: 640px) {
+  h2 {
+    display: none;
+  }
 }
 </style>

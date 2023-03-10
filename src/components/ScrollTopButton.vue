@@ -28,6 +28,7 @@ button {
     width: 50px;
     height: 50px;
     position: fixed;
+    z-index: 1;
     bottom: 25px;
     left: 25px;
     :hover {
