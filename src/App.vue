@@ -30,7 +30,7 @@
 <script>
 import SearchBar from "@/components/SearchBar.vue";
 import Filters from "@/components/Filters.vue";
-import CharacterGrid from "@/components/CharacterGrid.vue";
+import CharacterGrid from "@/components/CardGrid.vue";
 import CharacterCard from "@/components/CharacterCard.vue";
 import ScrollTopButton from "@/components/ScrollTopButton.vue";
 
