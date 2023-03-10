@@ -12,6 +12,7 @@
   <div class="body-main">
     <aside>
       <Filters v-bind:filters="filters"></Filters>
+      <ScrollTopButton v-if="isVisibleScrollTop"></ScrollTopButton>
     </aside>
     <span class="body-main-noresults"
           v-if="characters.length == 0">Oops! Nothing to see here. <br/> Please try again.</span>
@@ -30,11 +31,13 @@ import SearchBar from "@/components/SearchBar.vue";
 import Filters from "@/components/Filters.vue";
 import CharacterGrid from "@/components/CharacterGrid.vue";
 import CharacterCard from "@/components/CharacterCard.vue";
+import ScrollTopButton from "@/components/ScrollTopButton.vue";
 
 export default {
   components: {
     CharacterCard,
     CharacterGrid,
+    ScrollTopButton,
     Filters,
     SearchBar,
   },
@@ -52,6 +55,7 @@ export default {
         gender: ['Male', 'Female', 'Unknown']
       },
       isVisibleMobileFilters: false,
+      isVisibleScrollTop: false,
     }
   },
   watch: {
@@ -86,8 +90,15 @@ export default {
     scroll() {
       window.onscroll = () => {
         let bottomOfWindow = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight === document.documentElement.offsetHeight;
-        if (bottomOfWindow && this.hasNext) {
-          this.loadMore();
+        if (bottomOfWindow) {
+          if (this.hasNext) {
+            this.loadMore();
+          }
+        }
+        if (window.scrollY < 400) {
+          this.isVisibleScrollTop = false;
+        } else {
+          this.isVisibleScrollTop = true;
         }
       }
     },
@@ -135,7 +146,7 @@ export default {
     changeMobileFilterVisibility() {
       document.getElementById("mobilefilters-component").style.display = this.isVisibleMobileFilters ? "none" : "block";
       this.isVisibleMobileFilters = !this.isVisibleMobileFilters;
-    }
+    },
   },
   created() {
     this.searchCharacters();
@@ -161,7 +172,6 @@ export default {
 
 header {
   grid-area: header;
-  background-color: #efdfd4;
   padding: 0 2vw;
   display: flex;
   flex-direction: row;
@@ -191,10 +201,9 @@ header {
 
   aside {
     text-align: left;
-    background-color: #efdfd4;
     padding: 1vh 1vw;
-    border-radius: 25px;
     height: fit-content;
+    border-right: 2px solid black;
   }
 
   .body-main-noresults {

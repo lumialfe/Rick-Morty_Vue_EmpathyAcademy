@@ -1,6 +1,10 @@
+$light-theme-bg: #fff3e5;
+$dark-theme-bg: #18232f;
+
+
 body {
-  background-color: #fff3e5;
   font-family: "Montserrat", sans-serif;
+  background-color: $light-theme-bg;
   margin: 0;
   text-align: center;
   display: grid;
@@ -19,6 +23,8 @@ button {
   margin-top: 3vh;
   width: 80%;
   min-height: 5vh;
+
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 
   :hover {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;

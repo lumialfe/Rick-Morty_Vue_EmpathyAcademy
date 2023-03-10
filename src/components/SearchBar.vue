@@ -12,12 +12,12 @@ export default {
 <style scoped lang="scss">
 .header-searchbar {
   width: 40vw;
-  border-radius: 500px;
   height: auto;
   padding: 1rem 2rem;
   border: none;
+  border-bottom: 2px solid black;
   text-align: right;
-  background: white url("../assets/media/search-icon.svg") no-repeat 15px center;
+  background: url("../assets/media/search-icon.svg") no-repeat 15px center;
   background-size: 1rem;
   font-family: "Montserrat", sans-serif;
 }

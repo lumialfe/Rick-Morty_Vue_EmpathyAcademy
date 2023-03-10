@@ -11,7 +11,7 @@
     <FilterList v-bind:filters="filters.status" v-slot="slotProps">
       <StatusFilter v-on:clickCheckbox="changeStatus(slotProps.filter)">{{ slotProps.filter }}</StatusFilter>
     </FilterList>
-    <button class="aside__filters-button" v-on:click="resetAll">Clear Filters</button>
+    <button class="aside__filters-button" v-on:click="resetAll">Clear Search</button>
   </div>
 </template>
 
