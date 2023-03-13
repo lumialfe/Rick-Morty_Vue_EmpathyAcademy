@@ -1,16 +1,19 @@
 <!--suppress JSUnresolvedFunction -->
 <template>
   <div class="aside__filters">
+    <div v-if="!$parent.isShowingEpisodes">
+      <span class="aside__filters-title">Gender</span>
+      <FilterList v-bind:filters="filters.gender" v-slot="slotProps">
+        <GenderFilter v-on:clickCheckbox="changeGender(slotProps.filter)">{{ slotProps.filter }}
+        </GenderFilter>
+      </FilterList>
+      <span class="aside__filters-title">Status</span>
+      <FilterList v-bind:filters="filters.status" v-slot="slotProps">
+        <StatusFilter v-on:clickCheckbox="changeStatus(slotProps.filter)">{{ slotProps.filter }}</StatusFilter>
+      </FilterList>
+    </div>
     <h2>Filters</h2>
-    <span class="aside__filters-title">Gender</span>
-    <FilterList v-bind:filters="filters.gender" v-slot="slotProps">
-      <GenderFilter v-on:clickCheckbox="changeGender(slotProps.filter)">{{ slotProps.filter }}
-      </GenderFilter>
-    </FilterList>
-    <span class="aside__filters-title">Status</span>
-    <FilterList v-bind:filters="filters.status" v-slot="slotProps">
-      <StatusFilter v-on:clickCheckbox="changeStatus(slotProps.filter)">{{ slotProps.filter }}</StatusFilter>
-    </FilterList>
+
     <button class="aside__filters-button" v-on:click="resetAll">Clear Search</button>
     <button id="changeModeButton" v-on:click="this.$parent.changeMode">Show Episodes</button>
   </div>
