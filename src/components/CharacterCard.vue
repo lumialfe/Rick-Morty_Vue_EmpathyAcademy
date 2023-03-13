@@ -32,6 +32,7 @@ export default {
   display: grid;
   grid-template-areas: "image" "name" "text";
   border-radius: 5px;
+  overflow-wrap: break-word;
 
   box-shadow: rgba(50, 50, 93, 0.25) 0 6px 12px -2px, rgba(0, 0, 0, 0.3) 0 3px 7px -3px;
 
@@ -43,8 +44,9 @@ export default {
 
   .card-name {
     grid-area: name;
-    font-size: 200%;
+    font-size: 150%;
     font-weight: bold;
+    word-wrap: break-word;
 
     margin: 1vw;
   }

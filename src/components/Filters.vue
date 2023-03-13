@@ -12,6 +12,7 @@
       <StatusFilter v-on:clickCheckbox="changeStatus(slotProps.filter)">{{ slotProps.filter }}</StatusFilter>
     </FilterList>
     <button class="aside__filters-button" v-on:click="resetAll">Clear Search</button>
+    <button id="changeModeButton" v-on:click="this.$parent.changeMode">Show Episodes</button>
   </div>
 </template>
 

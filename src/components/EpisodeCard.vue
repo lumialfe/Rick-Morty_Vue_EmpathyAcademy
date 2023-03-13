@@ -23,23 +23,16 @@ export default {
   background-color: #f8f8f8;
   padding: 2.5vh 1vw;
   display: grid;
-  grid-template-areas: "image" "name" "text";
+  grid-template-areas: "name" "text";
   border-radius: 5px;
+  min-height: 40vh;
 
   box-shadow: rgba(50, 50, 93, 0.25) 0 6px 12px -2px, rgba(0, 0, 0, 0.3) 0 3px 7px -3px;
 
-  .card-image {
-    grid-area: image;
-    width: 100%;
-    border-radius: 5px;
-  }
-
   .card-name {
     grid-area: name;
-    font-size: 200%;
+    font-size: 150%;
     font-weight: bold;
-
-    margin: 1vw;
   }
 
   .card-text {

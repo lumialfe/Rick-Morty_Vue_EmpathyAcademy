@@ -2,7 +2,6 @@
 <template>
   <header>
     <a href="index.html"><img class="logo" src="./assets/media/logo.png" alt="Page Logo."/></a>
-    <button v-on:click="changeMode">Show Episodes</button>
     <SearchBar v-on:search="setCharacter"/>
   </header>
   <div class="body-mobilefilters">
@@ -88,8 +87,12 @@ export default {
       this.page = 1;
       this.results = [];
       if (this.isShowingEpisodes) {
+        this.url = 'https://rickandmortyapi.com/api/episode/';
+        document.getElementById("changeModeButton").innerText = "Show Characters";
         this.searchEpisodes();
       } else {
+        this.url = 'https://rickandmortyapi.com/api/character/';
+        document.getElementById("changeModeButton").innerText = "Show Episodes";
         this.searchCharacters();
       }
     },
@@ -112,8 +115,7 @@ export default {
     },
     searchEpisodes() {
 
-      let url = 'https://rickandmortyapi.com/api/episode/';
-      fetch(url + "?page=" + this.page +
+      fetch(this.url + "?page=" + this.page +
           (this.name != "" ? ('&name=' + this.name) : ""))
           .then(response => response.json())
           .then(data => {
@@ -168,6 +170,7 @@ export default {
           .then(response => response.json())
           .then(data => {
             this.hasNext = data.info.next;
+            console.log(data.results);
             for (let i = 20 * this.page - 20; i < 20 * this.page; i++) {
               this.results[i] = data.results[i - 20 * (this.page - 1)];
             }
