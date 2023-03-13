@@ -6,14 +6,24 @@ import './assets/styles/style.css';
 
 const store = createStore({
     state: {
+        results: [],
         isShowingEpisodes: false,
     },
     getters: {
+        getResults(state) {
+            return state.results;
+        },
         getShowingEpisodes(state) {
             return state.isShowingEpisodes;
         }
     },
     mutations: {
+        setResults(state, value) {
+            state.results = value;
+        },
+        addResult(state, value) {
+            state.results.push(value);
+        },
         setShowingEpisodes(state, value) {
             state.isShowingEpisodes = value;
         }

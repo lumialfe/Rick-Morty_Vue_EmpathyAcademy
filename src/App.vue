@@ -66,6 +66,9 @@ export default {
     }
   },
   computed: {
+    results() {
+      return this.$store.getters["getResults"];
+    },
     isShowingEpisodes() {
       return this.$store.getters["getShowingEpisodes"];
     }
@@ -89,7 +92,7 @@ export default {
     changeMode() {
       this.$store.commit("setShowingEpisodes", !this.isShowingEpisodes);
       this.page = 1;
-      this.results = [];
+      this.$store.commit("setResults", []);
       if (this.isShowingEpisodes) {
         this.url = 'https://rickandmortyapi.com/api/episode/';
         document.getElementById("changeModeButton").innerText = "Show Characters";
@@ -110,11 +113,12 @@ export default {
           (this.gender != "" ? ("&gender=" + this.gender) : ""))
           .then(response => response.json()).then(data => {
         this.hasNext = data.info.next != null;
-        this.results = data.results;
+
+        this.$store.commit("setResults", data.results);
       })
           .catch(ex => {
             console.log(ex);
-            this.results = [];
+            this.$store.commit("setResults", []);
           });
     },
     searchEpisodes() {
@@ -124,11 +128,11 @@ export default {
           .then(response => response.json())
           .then(data => {
             this.hasNext = data.info.next != null;
-            this.results = data.results;
+            this.$store.commit("setResults", data.results);
           })
           .catch(ex => {
             console.log(ex);
-            this.results = [];
+            this.$store.commit("setResults", []);
           });
     },
     scroll() {
@@ -158,13 +162,16 @@ export default {
           (this.gender != "" ? ("&gender=" + this.gender) : ""))
           .then(response => response.json()).then(data => {
         this.hasNext = data.info.next;
+
+        console.log(data.results);
+
         for (let i = 20 * this.page - 20; i < 20 * this.page; i++) {
-          this.results[i] = data.results[i - 20 * (this.page - 1)];
+          this.$store.commit("addResult", data.results[i - 20 * (this.page - 1)]);
         }
       })
           .catch(ex => {
             console.log(ex);
-            this.results = [];
+            this.$store.commit("setResults", []);
           });
     },
     loadMoreEpisodes() {
@@ -176,7 +183,7 @@ export default {
             this.hasNext = data.info.next;
             console.log(data.results);
             for (let i = 20 * this.page - 20; i < 20 * this.page; i++) {
-              this.results[i] = data.results[i - 20 * (this.page - 1)];
+              this.$store.commit("addResult", data.results[i - 20 * (this.page - 1)]);
             }
           })
           .catch(ex => {
