@@ -1,6 +1,6 @@
-# Rick & Morty Search Page with Vue 3
+# Rick & Morty Search Page with VueX
 
-This is the second exercise of the Frontend Path of the Acadamy Program of [Empathy.co](https://empathy.co/). In it we tried to replicate the page donde for [Exercise 1](https://github.com/lumialfe/Rick-Morty_EmpathyAcademy) using the Framework [Vue 3](https://vuejs.org/).
+This is the third challenge of the Frontend Path of the Acadamy Program of [Empathy.co](https://empathy.co/). In it we tried to replicate the page donde for [Exercise 1](https://github.com/lumialfe/Rick-Morty_EmpathyAcademy) using the Framework [Vue 3](https://vuejs.org/) and [VueX](https://vuex.vuejs.org/).
 
 The idea was to create a Web Page that, through calls to an [API](https://rickandmortyapi.com/), allowed the user to search for different characters, displaying their images and information in a responsive fashion.
 
