@@ -2,6 +2,7 @@
 <template>
   <header>
     <a href="index.html"><img class="logo" src="./assets/media/logo.png" alt="Page Logo."/></a>
+    <button v-on:click="changeMode">Show Episodes</button>
     <SearchBar v-on:search="setCharacter"/>
   </header>
   <div class="body-mobilefilters">
@@ -16,11 +17,15 @@
       <ScrollTopButton v-if="isVisibleScrollTop"></ScrollTopButton>
     </aside>
     <span class="body-main-noresults"
-          v-if="characters.length == 0">Oops! Nothing to see here. <br/> Please try again.</span>
+          v-if="results.length == 0">Oops! Nothing to see here. <br/> Please try again.</span>
     <CharacterGrid>
-      <TransitionGroup name="list">
-        <CharacterCard v-for="character in characters" v-bind:key="character.id"
-                     v-bind:character="character"></CharacterCard>
+      <TransitionGroup v-if="!isShowingEpisodes" name="list">
+        <CharacterCard v-for="character in results" v-bind:key="character.id"
+                       v-bind:character="character"></CharacterCard>
+      </TransitionGroup>
+      <TransitionGroup v-if="isShowingEpisodes" name="list">
+        <EpisodeCard v-for="episode in results" v-bind:key="episode.id"
+                     v-bind:episode="episode"></EpisodeCard>
       </TransitionGroup>
     </CharacterGrid>
   </div>
@@ -33,9 +38,11 @@ import Filters from "@/components/Filters.vue";
 import CharacterGrid from "@/components/CardGrid.vue";
 import CharacterCard from "@/components/CharacterCard.vue";
 import ScrollTopButton from "@/components/ScrollTopButton.vue";
+import EpisodeCard from "@/components/EpisodeCard.vue";
 
 export default {
   components: {
+    EpisodeCard,
     CharacterCard,
     CharacterGrid,
     ScrollTopButton,
@@ -47,7 +54,7 @@ export default {
       name: '',
       gender: '',
       status: '',
-      characters: [],
+      results: [],
       url: 'https://rickandmortyapi.com/api/character/',
       page: 1,
       hasNext: false,
@@ -57,11 +64,16 @@ export default {
       },
       isVisibleMobileFilters: false,
       isVisibleScrollTop: false,
+      isShowingEpisodes: false,
     }
   },
   watch: {
     name() {
-      this.debounce(this.searchCharacters(), 500);
+      if (!this.isShowingEpisodes) {
+        this.debounce(this.searchCharacters(), 500);
+      } else {
+        this.debounce(this.searchEpisodes(), 500);
+      }
     },
     status() {
       this.searchCharacters();
@@ -71,6 +83,16 @@ export default {
     },
   },
   methods: {
+    changeMode() {
+      this.isShowingEpisodes = !this.isShowingEpisodes;
+      this.page = 1;
+      this.results = [];
+      if (this.isShowingEpisodes) {
+        this.searchEpisodes();
+      } else {
+        this.searchCharacters();
+      }
+    },
     setCharacter(character) {
       this.name = character;
     },
@@ -81,19 +103,38 @@ export default {
           (this.gender != "" ? ("&gender=" + this.gender) : ""))
           .then(response => response.json()).then(data => {
         this.hasNext = data.info.next != null;
-        this.characters = data.results;
+        this.results = data.results;
       })
           .catch(ex => {
             console.log(ex);
-            this.characters = [];
+            this.results = [];
+          });
+    },
+    searchEpisodes() {
+
+      let url = 'https://rickandmortyapi.com/api/episode/';
+      fetch(url + "?page=" + this.page +
+          (this.name != "" ? ('&name=' + this.name) : ""))
+          .then(response => response.json())
+          .then(data => {
+            this.hasNext = data.info.next != null;
+            this.results = data.results;
+          })
+          .catch(ex => {
+            console.log(ex);
+            this.results = [];
           });
     },
     scroll() {
       window.onscroll = () => {
-        let bottomOfWindow = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight === document.documentElement.offsetHeight;
+        let bottomOfWindow = (window.innerHeight + Math.ceil(window.pageYOffset)) >= document.body.offsetHeight - 50;
         if (bottomOfWindow) {
           if (this.hasNext) {
-            this.loadMore();
+            if (!this.isShowingEpisodes) {
+              this.loadMoreCharacters();
+            } else {
+              this.loadMoreEpisodes();
+            }
           }
         }
         if (window.scrollY < 400) {
@@ -103,7 +144,7 @@ export default {
         }
       }
     },
-    loadMore() {
+    loadMoreCharacters() {
       this.page += 1;
       fetch(this.url + "?page=" + this.page +
           (this.name != "" ? ('&name=' + this.name) : "") +
@@ -112,12 +153,28 @@ export default {
           .then(response => response.json()).then(data => {
         this.hasNext = data.info.next;
         for (let i = 20 * this.page - 20; i < 20 * this.page; i++) {
-          this.characters[i] = data.results[i - 20 * (this.page - 1)];
+          this.results[i] = data.results[i - 20 * (this.page - 1)];
         }
       })
           .catch(ex => {
             console.log(ex);
-            this.characters = [];
+            this.results = [];
+          });
+    },
+    loadMoreEpisodes() {
+      this.page += 1;
+      fetch(this.url + "?page=" + this.page +
+          (this.name != "" ? ('&name=' + this.name) : ""))
+          .then(response => response.json())
+          .then(data => {
+            this.hasNext = data.info.next;
+            for (let i = 20 * this.page - 20; i < 20 * this.page; i++) {
+              this.results[i] = data.results[i - 20 * (this.page - 1)];
+            }
+          })
+          .catch(ex => {
+            console.log(ex);
+            this.results = [];
           });
     },
     debounce(func, delay) {
@@ -164,6 +221,7 @@ export default {
 .list-leave-active {
   transition: all .5s ease;
 }
+
 .list-enter-from,
 .list-leave-to {
   opacity: 0;

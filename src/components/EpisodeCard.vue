@@ -1,6 +1,5 @@
 <template>
   <div className='main-card'>
-    <img className='card-image' loading='lazy' v-bind:src="episode.image" v-bind:alt="episode.name"/>
     <p className="card-name">{{ episode.name }}</p>
     <p className="card-text">
       <span className="card-text-span">
