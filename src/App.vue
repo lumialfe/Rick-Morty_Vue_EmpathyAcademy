@@ -63,7 +63,11 @@ export default {
       },
       isVisibleMobileFilters: false,
       isVisibleScrollTop: false,
-      isShowingEpisodes: false,
+    }
+  },
+  computed: {
+    isShowingEpisodes() {
+      return this.$store.getters["getShowingEpisodes"];
     }
   },
   watch: {
@@ -83,7 +87,7 @@ export default {
   },
   methods: {
     changeMode() {
-      this.isShowingEpisodes = !this.isShowingEpisodes;
+      this.$store.commit("setShowingEpisodes", !this.isShowingEpisodes);
       this.page = 1;
       this.results = [];
       if (this.isShowingEpisodes) {
