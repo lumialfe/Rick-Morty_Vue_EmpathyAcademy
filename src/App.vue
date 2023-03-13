@@ -54,7 +54,6 @@ export default {
       gender: '',
       status: '',
       results: [],
-      url: 'https://rickandmortyapi.com/api/character/',
       page: 1,
       hasNext: false,
       filters: {
@@ -71,6 +70,9 @@ export default {
     },
     isShowingEpisodes() {
       return this.$store.getters["getShowingEpisodes"];
+    },
+    baseUrl() {
+      return this.$store.getters["getUrl"];
     }
   },
   watch: {
@@ -106,8 +108,9 @@ export default {
     setCharacter(character) {
       this.name = character;
     },
+
     searchCharacters() {
-      fetch(this.url + "?page=" + this.page +
+      fetch(this.baseUrl + "?page=" + this.page +
           (this.name != "" ? ('&name=' + this.name) : "") +
           (this.status != "" ? ("&status=" + this.status) : "") +
           (this.gender != "" ? ("&gender=" + this.gender) : ""))
@@ -123,7 +126,7 @@ export default {
     },
     searchEpisodes() {
 
-      fetch(this.url + "?page=" + this.page +
+      fetch(this.baseUrl + "?page=" + this.page +
           (this.name != "" ? ('&name=' + this.name) : ""))
           .then(response => response.json())
           .then(data => {
@@ -156,7 +159,7 @@ export default {
     },
     loadMoreCharacters() {
       this.page += 1;
-      fetch(this.url + "?page=" + this.page +
+      fetch(this.baseUrl + "?page=" + this.page +
           (this.name != "" ? ('&name=' + this.name) : "") +
           (this.status != "" ? ("&status=" + this.status) : "") +
           (this.gender != "" ? ("&gender=" + this.gender) : ""))
@@ -176,7 +179,7 @@ export default {
     },
     loadMoreEpisodes() {
       this.page += 1;
-      fetch(this.url + "?page=" + this.page +
+      fetch(this.baseUrl + "?page=" + this.page +
           (this.name != "" ? ('&name=' + this.name) : ""))
           .then(response => response.json())
           .then(data => {

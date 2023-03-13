@@ -15,6 +15,10 @@ const store = createStore({
         },
         getShowingEpisodes(state) {
             return state.isShowingEpisodes;
+        },
+        getUrl(state) {
+            let baseURL = 'https://rickandmortyapi.com/api/';
+            return baseURL + (state.isShowingEpisodes ? 'episode/' : 'character/');
         }
     },
     mutations: {
