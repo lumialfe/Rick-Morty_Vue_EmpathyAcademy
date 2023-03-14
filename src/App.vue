@@ -117,16 +117,6 @@ export default {
             console.log(ex);
           });
     },
-    debounce(func, delay) {
-      let debounceTimer
-      return function () {
-        const context = this
-        const args = arguments
-        clearTimeout(debounceTimer)
-        debounceTimer
-            = setTimeout(() => func.apply(context, args), delay)
-      }
-    },
     changeName(character) {
       this.$store.commit("setName", character);
       this.debounce(this.search(), 500);

@@ -41,7 +41,7 @@ const store = createStore({
         },
         getQuery(state) {
             let baseURL = 'https://rickandmortyapi.com/api/';
-            baseURL += (state.isShowingEpisodes ? 'episode/' : 'character/');
+            baseURL += (state.isShowingEpisodes ? 'episode/' : 'character/'); // Check if chars or episodes
             return baseURL + "?page=" + state.page + // Base URL + Page Number
                 (state.name != "" ? ('&name=' + state.name) : "") + // Name, if any
                 (!state.isShowingEpisodes ? (state.status != "" ? ("&status=" + state.status) : "") +
