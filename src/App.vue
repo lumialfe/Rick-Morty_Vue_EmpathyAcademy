@@ -93,8 +93,9 @@ export default {
     },
     scroll() {
       window.onscroll = () => {
-        let bottomOfWindow = (window.innerHeight + Math.ceil(window.pageYOffset)) >= document.body.offsetHeight - 50;
-        if (bottomOfWindow) {
+        let isBottomOfWindowReached = (window.innerHeight + Math.ceil(window.pageYOffset)) >=
+            document.body.offsetHeight - 50;
+        if (isBottomOfWindowReached) {
           if (this.hasNext) {
             this.$store.commit("increasePage");
             this.loadMore();
@@ -131,19 +132,11 @@ export default {
       this.debounce(this.search(), 500);
     },
     changeStatus(checkboxValue) {
-      if (this.status === checkboxValue) {
-        this.$store.commit("setStatus", "");
-      } else {
-        this.$store.commit("setStatus", checkboxValue);
-      }
+      this.$store.commit("setStatus", checkboxValue);
       this.search();
     },
     changeGender(checkboxValue) {
-      if (this.gender === checkboxValue) {
-        this.$store.commit("setGender", "");
-      } else {
-        this.$store.commit("setGender", checkboxValue);
-      }
+      this.$store.commit("setGender", checkboxValue);
       this.search();
     },
     changeMobileFilterVisibility() {
