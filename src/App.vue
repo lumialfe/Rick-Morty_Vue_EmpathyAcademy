@@ -50,57 +50,58 @@ export default {
   },
   data() {
     return {
+      filters: {
+        status: ['Alive', 'Dead', 'Unknown'],
+        gender: ['Male', 'Female', 'Unknown']
+      },
       isVisibleMobileFilters: false,
       isVisibleScrollTop: false,
     }
   },
   computed: {
     results() {
-      return this.$store.getters["getResults"];
+      return this.$store.getters['results/getResults'];
     },
     isShowingEpisodes() {
-      return this.$store.getters["getShowingEpisodes"];
-    },
-    filters() {
-      return this.$store.getters["getFilters"];
+      return this.$store.getters["search/getShowingEpisodes"];
     },
     page() {
-      return this.$store.getters["getPage"];
+      return this.$store.getters["search/getPage"];
     },
     query() {
-      return this.$store.getters["getQuery"];
+      return this.$store.getters["search/getQuery"];
     },
   },
   methods: {
     changeMode() {
-      this.$store.commit("setShowingEpisodes", !this.isShowingEpisodes);
-      this.$store.commit("setResults", []);
-      this.$store.dispatch("search");
+      this.$store.commit("search/setShowingEpisodes", !this.isShowingEpisodes);
+      this.$store.commit("results/setResults", []);
+      this.$store.dispatch("results/search");
     },
     scroll() {
       window.onscroll = () => {
         let isBottomOfWindowReached = (window.innerHeight + Math.ceil(window.pageYOffset)) >=
             document.body.offsetHeight - 50;
         if (isBottomOfWindowReached) {
-          if (this.$store.getters["getHasNext"]) {
-            this.$store.commit("increasePage");
-            this.$store.dispatch("loadMore");
+          if (this.$store.getters["results/getHasNext"]) {
+            this.$store.commit("search/increasePage");
+            this.$store.dispatch("results/loadMore");
           }
         }
         this.isVisibleScrollTop = window.scrollY > 400;
       }
     },
     changeName(character) {
-      this.$store.commit("setName", character);
-      this.$store.dispatch("search");
+      this.$store.commit("search/setName", character);
+      this.$store.dispatch("results/search");
     },
     changeStatus(checkboxValue) {
-      this.$store.commit("setStatus", checkboxValue);
-      this.$store.dispatch("search");
+      this.$store.commit("search/setStatus", checkboxValue);
+      this.$store.dispatch("results/search");
     },
     changeGender(checkboxValue) {
-      this.$store.commit("setGender", checkboxValue);
-      this.$store.dispatch("search");
+      this.$store.commit("search/setGender", checkboxValue);
+      this.$store.dispatch("results/search");
     },
     changeMobileFilterVisibility() {
       document.getElementById("mobilefilters-component").style.display = this.isVisibleMobileFilters ? "none" : "block";
@@ -108,7 +109,7 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("search");
+    this.$store.dispatch("results/search");
   },
   mounted() {
     this.scroll();
