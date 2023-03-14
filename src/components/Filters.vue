@@ -3,14 +3,14 @@
   <div class="aside__filters">
     <h2>Filters</h2>
     <div v-if="!$parent.isShowingEpisodes">
+      <span class="aside__filters-title">Status</span>
+      <FilterList v-bind:filters="filters.status" v-slot="slotProps">
+        <StatusFilter v-on:clickCheckbox="changeStatus(slotProps.filter)">{{ slotProps.filter }}</StatusFilter>
+      </FilterList>
       <span class="aside__filters-title">Gender</span>
       <FilterList v-bind:filters="filters.gender" v-slot="slotProps">
         <GenderFilter v-on:clickCheckbox="changeGender(slotProps.filter)">{{ slotProps.filter }}
         </GenderFilter>
-      </FilterList>
-      <span class="aside__filters-title">Status</span>
-      <FilterList v-bind:filters="filters.status" v-slot="slotProps">
-        <StatusFilter v-on:clickCheckbox="changeStatus(slotProps.filter)">{{ slotProps.filter }}</StatusFilter>
       </FilterList>
     </div>
     <button class="aside__filters-button" v-on:click="resetAll">Clear Search</button>

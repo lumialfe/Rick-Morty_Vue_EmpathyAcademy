@@ -28,8 +28,8 @@ const store = createStore({
             let baseURL = 'https://rickandmortyapi.com/api/';
             baseURL += (state.isShowingEpisodes ? 'episode/' : 'character/'); // Check if characters or episodes
             return baseURL + "?page=" + state.page + // Base URL + Page Number
-                (state.name !== "" ? ('&name=' + state.name) : "") + // Name, if any
-                (!state.isShowingEpisodes ? (state.status !== "" ? ("&status=" + state.status) : "") + (state.gender !== "" ? ("&gender=" + state.gender) : "") : ""); // If characters, check filters
+                (state.name != "" ? ('&name=' + state.name) : "") + // Name, if any
+                (!state.isShowingEpisodes ? (state.status != "" ? ("&status=" + state.status) : "") + (state.gender != "" ? ("&gender=" + state.gender) : "") : ""); // If characters, check filters
         }, getHasNext(state) {
             return state.hasNext;
         }
@@ -44,6 +44,7 @@ const store = createStore({
             })
                 .catch(ex => {
                     console.log(ex);
+                    commit("setResults", []);
                 });
         }, async loadMore({commit, getters}) {
             fetch(getters["getQuery"])
