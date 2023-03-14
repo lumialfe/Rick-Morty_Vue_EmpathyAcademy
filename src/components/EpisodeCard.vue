@@ -1,11 +1,11 @@
 <template>
-  <div className='main-card'>
-    <p className="card-name">{{ episode.name }}</p>
-    <p className="card-text">
-      <span className="card-text-span">
+  <div class='main-card'>
+    <p class="card-name">{{ episode.name }}</p>
+    <p class="card-text">
+      <span class="card-text-span">
               Episode: {{ episode.episode }}
       </span>
-      <span className="card-text-span">
+      <span class="card-text-span">
               AirDate: {{ episode.air_date }}
       </span>
     </p>
