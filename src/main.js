@@ -12,6 +12,7 @@ const store = createStore({
             status: ['Alive', 'Dead', 'Unknown'],
             gender: ['Male', 'Female', 'Unknown']
         },
+        page: 1,
     },
     getters: {
         getResults(state) {
@@ -26,6 +27,9 @@ const store = createStore({
         },
         getFilters(state) {
             return state.filters;
+        },
+        getPage(state) {
+            return state.page;
         }
     },
     mutations: {
@@ -37,7 +41,13 @@ const store = createStore({
         },
         setShowingEpisodes(state, value) {
             state.isShowingEpisodes = value;
-        }
+        },
+        increasePage(state) {
+            state.page++;
+        },
+        resetPage(state) {
+            state.page = 1;
+        },
     }
 });
 

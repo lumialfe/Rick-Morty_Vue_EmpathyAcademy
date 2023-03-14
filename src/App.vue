@@ -53,8 +53,6 @@ export default {
       name: '',
       gender: '',
       status: '',
-      results: [],
-      page: 1,
       hasNext: false,
       isVisibleMobileFilters: false,
       isVisibleScrollTop: false,
@@ -73,6 +71,9 @@ export default {
     filters() {
       return this.$store.getters["getFilters"];
     },
+    page() {
+      return this.$store.getters["getPage"];
+    }
   },
   watch: {
     name() {
@@ -88,7 +89,6 @@ export default {
   methods: {
     changeMode() {
       this.$store.commit("setShowingEpisodes", !this.isShowingEpisodes);
-      this.page = 1;
       this.$store.commit("setResults", []);
       this.search();
     },
@@ -96,7 +96,7 @@ export default {
       this.name = character;
     },
     search() {
-      this.page = 1;
+      this.$store.commit("resetPage");
 
       let query = this.baseUrl + "?page=" + this.page + // Base URL + Page Number
           (this.name != "" ? ('&name=' + this.name) : "") + // Name, if any
@@ -118,7 +118,7 @@ export default {
         let bottomOfWindow = (window.innerHeight + Math.ceil(window.pageYOffset)) >= document.body.offsetHeight - 50;
         if (bottomOfWindow) {
           if (this.hasNext) {
-            this.page += 1;
+            this.$store.commit("increasePage");
             this.loadMore();
           }
         }
