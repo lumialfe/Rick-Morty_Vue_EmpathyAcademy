@@ -8,6 +8,10 @@ const store = createStore({
     state: {
         results: [],
         isShowingEpisodes: false,
+        filters: {
+            status: ['Alive', 'Dead', 'Unknown'],
+            gender: ['Male', 'Female', 'Unknown']
+        },
     },
     getters: {
         getResults(state) {
@@ -19,6 +23,9 @@ const store = createStore({
         getUrl(state) {
             let baseURL = 'https://rickandmortyapi.com/api/';
             return baseURL + (state.isShowingEpisodes ? 'episode/' : 'character/');
+        },
+        getFilters(state) {
+            return state.filters;
         }
     },
     mutations: {

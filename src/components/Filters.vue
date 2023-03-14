@@ -15,7 +15,7 @@
     <h2>Filters</h2>
 
     <button class="aside__filters-button" v-on:click="resetAll">Clear Search</button>
-    <button id="changeModeButton" v-on:click="this.$parent.changeMode">Show Episodes</button>
+    <button id="changeModeButton" v-on:click="this.$parent.changeMode">{{ buttonText }}</button>
   </div>
 </template>
 
@@ -28,6 +28,11 @@ import StatusFilter from "@/components/StatusFilter.vue";
 export default {
   components: {StatusFilter, GenderFilter, FilterList},
   props: ['filters'],
+  computed: {
+    buttonText() {
+      return "Show " + (this.$store.getters["getShowingEpisodes"] ? "Characters" : "Episodes");
+    }
+  },
   methods: {
     resetAll() {
       location.reload();

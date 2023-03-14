@@ -56,10 +56,6 @@ export default {
       results: [],
       page: 1,
       hasNext: false,
-      filters: {
-        status: ['Alive', 'Dead', 'Unknown'],
-        gender: ['Male', 'Female', 'Unknown']
-      },
       isVisibleMobileFilters: false,
       isVisibleScrollTop: false,
     }
@@ -73,21 +69,20 @@ export default {
     },
     baseUrl() {
       return this.$store.getters["getUrl"];
-    }
+    },
+    filters() {
+      return this.$store.getters["getFilters"];
+    },
   },
   watch: {
     name() {
-      if (!this.isShowingEpisodes) {
-        this.debounce(this.searchCharacters(), 500);
-      } else {
-        this.debounce(this.searchEpisodes(), 500);
-      }
+      this.debounce(this.search(), 500);
     },
     status() {
-      this.searchCharacters();
+      this.search();
     },
     gender() {
-      this.searchCharacters();
+      this.search();
     },
   },
   methods: {
@@ -95,44 +90,24 @@ export default {
       this.$store.commit("setShowingEpisodes", !this.isShowingEpisodes);
       this.page = 1;
       this.$store.commit("setResults", []);
-      if (this.isShowingEpisodes) {
-        this.url = 'https://rickandmortyapi.com/api/episode/';
-        document.getElementById("changeModeButton").innerText = "Show Characters";
-        this.searchEpisodes();
-      } else {
-        this.url = 'https://rickandmortyapi.com/api/character/';
-        document.getElementById("changeModeButton").innerText = "Show Episodes";
-        this.searchCharacters();
-      }
+      this.search();
     },
     setCharacter(character) {
       this.name = character;
     },
+    search() {
+      this.page = 1;
 
-    searchCharacters() {
-      fetch(this.baseUrl + "?page=" + this.page +
-          (this.name != "" ? ('&name=' + this.name) : "") +
-          (this.status != "" ? ("&status=" + this.status) : "") +
-          (this.gender != "" ? ("&gender=" + this.gender) : ""))
+      let query = this.baseUrl + "?page=" + this.page + // Base URL + Page Number
+          (this.name != "" ? ('&name=' + this.name) : "") + // Name, if any
+          (!this.isShowingEpisodes ? (this.status != "" ? ("&status=" + this.status) : "") +
+              (this.gender != "" ? ("&gender=" + this.gender) : "") : ""); // If characters, check filters
+
+      fetch(query)
           .then(response => response.json()).then(data => {
         this.hasNext = data.info.next != null;
-
         this.$store.commit("setResults", data.results);
       })
-          .catch(ex => {
-            console.log(ex);
-            this.$store.commit("setResults", []);
-          });
-    },
-    searchEpisodes() {
-
-      fetch(this.baseUrl + "?page=" + this.page +
-          (this.name != "" ? ('&name=' + this.name) : ""))
-          .then(response => response.json())
-          .then(data => {
-            this.hasNext = data.info.next != null;
-            this.$store.commit("setResults", data.results);
-          })
           .catch(ex => {
             console.log(ex);
             this.$store.commit("setResults", []);
@@ -143,30 +118,22 @@ export default {
         let bottomOfWindow = (window.innerHeight + Math.ceil(window.pageYOffset)) >= document.body.offsetHeight - 50;
         if (bottomOfWindow) {
           if (this.hasNext) {
-            if (!this.isShowingEpisodes) {
-              this.loadMoreCharacters();
-            } else {
-              this.loadMoreEpisodes();
-            }
+            this.page += 1;
+            this.loadMore();
           }
         }
-        if (window.scrollY < 400) {
-          this.isVisibleScrollTop = false;
-        } else {
-          this.isVisibleScrollTop = true;
-        }
+        this.isVisibleScrollTop = window.scrollY > 400;
       }
     },
-    loadMoreCharacters() {
-      this.page += 1;
-      fetch(this.baseUrl + "?page=" + this.page +
-          (this.name != "" ? ('&name=' + this.name) : "") +
-          (this.status != "" ? ("&status=" + this.status) : "") +
-          (this.gender != "" ? ("&gender=" + this.gender) : ""))
-          .then(response => response.json()).then(data => {
-        this.hasNext = data.info.next;
+    loadMore() {
+      let query = this.baseUrl + "?page=" + this.page + // Base URL + Page Number
+          (this.name != "" ? ('&name=' + this.name) : "") + // Name, if any
+          (!this.isShowingEpisodes ? (this.status != "" ? ("&status=" + this.status) : "") +
+              (this.gender != "" ? ("&gender=" + this.gender) : "") : ""); // If characters, check filters
 
-        console.log(data.results);
+      fetch(query)
+          .then(response => response.json()).then(data => {
+        this.hasNext = data.info.next != null;
 
         for (let i = 20 * this.page - 20; i < 20 * this.page; i++) {
           this.$store.commit("addResult", data.results[i - 20 * (this.page - 1)]);
@@ -174,24 +141,6 @@ export default {
       })
           .catch(ex => {
             console.log(ex);
-            this.$store.commit("setResults", []);
-          });
-    },
-    loadMoreEpisodes() {
-      this.page += 1;
-      fetch(this.baseUrl + "?page=" + this.page +
-          (this.name != "" ? ('&name=' + this.name) : ""))
-          .then(response => response.json())
-          .then(data => {
-            this.hasNext = data.info.next;
-            console.log(data.results);
-            for (let i = 20 * this.page - 20; i < 20 * this.page; i++) {
-              this.$store.commit("addResult", data.results[i - 20 * (this.page - 1)]);
-            }
-          })
-          .catch(ex => {
-            console.log(ex);
-            this.results = [];
           });
     },
     debounce(func, delay) {
@@ -224,7 +173,7 @@ export default {
     },
   },
   created() {
-    this.searchCharacters();
+    this.search();
   },
   mounted() {
     this.scroll();
