@@ -1,6 +1,7 @@
 <!--suppress JSUnresolvedFunction -->
 <template>
   <div class="aside__filters">
+    <h2>Filters</h2>
     <div v-if="!$parent.isShowingEpisodes">
       <span class="aside__filters-title">Gender</span>
       <FilterList v-bind:filters="filters.gender" v-slot="slotProps">
@@ -12,8 +13,6 @@
         <StatusFilter v-on:clickCheckbox="changeStatus(slotProps.filter)">{{ slotProps.filter }}</StatusFilter>
       </FilterList>
     </div>
-    <h2>Filters</h2>
-
     <button class="aside__filters-button" v-on:click="resetAll">Clear Search</button>
     <button id="changeModeButton" v-on:click="this.$parent.changeMode">{{ buttonText }}</button>
   </div>

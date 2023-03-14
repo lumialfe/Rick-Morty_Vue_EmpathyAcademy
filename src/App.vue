@@ -2,7 +2,7 @@
 <template>
   <header>
     <a href="index.html"><img class="logo" src="./assets/media/logo.png" alt="Page Logo."/></a>
-    <SearchBar v-on:search="setCharacter"/>
+    <SearchBar v-on:search="changeName"/>
   </header>
   <div class="body-mobilefilters">
     <button class="mobilefilters-button" v-on:click="changeMobileFilterVisibility">
@@ -50,9 +50,6 @@ export default {
   },
   data() {
     return {
-      name: '',
-      gender: '',
-      status: '',
       hasNext: false,
       isVisibleMobileFilters: false,
       isVisibleScrollTop: false,
@@ -65,25 +62,14 @@ export default {
     isShowingEpisodes() {
       return this.$store.getters["getShowingEpisodes"];
     },
-    baseUrl() {
-      return this.$store.getters["getUrl"];
-    },
     filters() {
       return this.$store.getters["getFilters"];
     },
     page() {
       return this.$store.getters["getPage"];
-    }
-  },
-  watch: {
-    name() {
-      this.debounce(this.search(), 500);
     },
-    status() {
-      this.search();
-    },
-    gender() {
-      this.search();
+    query() {
+      return this.$store.getters["getQuery"];
     },
   },
   methods: {
@@ -92,18 +78,10 @@ export default {
       this.$store.commit("setResults", []);
       this.search();
     },
-    setCharacter(character) {
-      this.name = character;
-    },
     search() {
       this.$store.commit("resetPage");
 
-      let query = this.baseUrl + "?page=" + this.page + // Base URL + Page Number
-          (this.name != "" ? ('&name=' + this.name) : "") + // Name, if any
-          (!this.isShowingEpisodes ? (this.status != "" ? ("&status=" + this.status) : "") +
-              (this.gender != "" ? ("&gender=" + this.gender) : "") : ""); // If characters, check filters
-
-      fetch(query)
+      fetch(this.query)
           .then(response => response.json()).then(data => {
         this.hasNext = data.info.next != null;
         this.$store.commit("setResults", data.results);
@@ -126,12 +104,7 @@ export default {
       }
     },
     loadMore() {
-      let query = this.baseUrl + "?page=" + this.page + // Base URL + Page Number
-          (this.name != "" ? ('&name=' + this.name) : "") + // Name, if any
-          (!this.isShowingEpisodes ? (this.status != "" ? ("&status=" + this.status) : "") +
-              (this.gender != "" ? ("&gender=" + this.gender) : "") : ""); // If characters, check filters
-
-      fetch(query)
+      fetch(this.query)
           .then(response => response.json()).then(data => {
         this.hasNext = data.info.next != null;
 
@@ -153,19 +126,25 @@ export default {
             = setTimeout(() => func.apply(context, args), delay)
       }
     },
+    changeName(character) {
+      this.$store.commit("setName", character);
+      this.debounce(this.search(), 500);
+    },
     changeStatus(checkboxValue) {
       if (this.status === checkboxValue) {
-        this.status = '';
+        this.$store.commit("setStatus", "");
       } else {
-        this.status = checkboxValue;
+        this.$store.commit("setStatus", checkboxValue);
       }
+      this.search();
     },
     changeGender(checkboxValue) {
       if (this.gender === checkboxValue) {
-        this.gender = '';
+        this.$store.commit("setGender", "");
       } else {
-        this.gender = checkboxValue;
+        this.$store.commit("setGender", checkboxValue);
       }
+      this.search();
     },
     changeMobileFilterVisibility() {
       document.getElementById("mobilefilters-component").style.display = this.isVisibleMobileFilters ? "none" : "block";

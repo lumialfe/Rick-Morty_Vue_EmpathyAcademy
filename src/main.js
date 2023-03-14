@@ -13,6 +13,9 @@ const store = createStore({
             gender: ['Male', 'Female', 'Unknown']
         },
         page: 1,
+        name: '',
+        gender: '',
+        status: '',
     },
     getters: {
         getResults(state) {
@@ -21,15 +24,28 @@ const store = createStore({
         getShowingEpisodes(state) {
             return state.isShowingEpisodes;
         },
-        getUrl(state) {
-            let baseURL = 'https://rickandmortyapi.com/api/';
-            return baseURL + (state.isShowingEpisodes ? 'episode/' : 'character/');
-        },
         getFilters(state) {
             return state.filters;
         },
         getPage(state) {
             return state.page;
+        },
+        getName(state) {
+            return state.name;
+        },
+        getGender(state) {
+            return state.gender;
+        },
+        getStatus(state) {
+            return state.status;
+        },
+        getQuery(state) {
+            let baseURL = 'https://rickandmortyapi.com/api/';
+            baseURL += (state.isShowingEpisodes ? 'episode/' : 'character/');
+            return baseURL + "?page=" + state.page + // Base URL + Page Number
+                (state.name != "" ? ('&name=' + state.name) : "") + // Name, if any
+                (!state.isShowingEpisodes ? (state.status != "" ? ("&status=" + state.status) : "") +
+                    (state.gender != "" ? ("&gender=" + state.gender) : "") : ""); // If characters, check filters
         }
     },
     mutations: {
@@ -48,6 +64,15 @@ const store = createStore({
         resetPage(state) {
             state.page = 1;
         },
+        setName(state, value) {
+            state.name = value;
+        },
+        setGender(state, value) {
+            state.gender = value;
+        },
+        setStatus(state, value) {
+            state.status = value;
+        }
     }
 });
 
