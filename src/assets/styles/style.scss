@@ -1,4 +1,4 @@
-$light-theme-bg: #fff4e5;
+$light-theme-bg: #fff8ee;
 $dark-theme-bg: #18232f;
 
 
@@ -17,8 +17,8 @@ button {
   font-family: "Montserrat", sans-serif;
   font-size: 100%;
   font-weight: bold;
-  background: none;
-  border: 2px solid white;
+  background-color: white;
+  border: 2px solid $light-theme-bg;
   border-radius: 15px;
   margin-top: 3vh;
   width: 80%;

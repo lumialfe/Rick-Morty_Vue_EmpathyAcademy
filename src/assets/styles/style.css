@@ -1,6 +1,6 @@
 body {
   font-family: "Montserrat", sans-serif;
-  background-color: #fff4e5;
+  background-color: #fff8ee;
   margin: 0;
   text-align: center;
   display: grid;
@@ -12,8 +12,8 @@ button {
   font-family: "Montserrat", sans-serif;
   font-size: 100%;
   font-weight: bold;
-  background: none;
-  border: 2px solid white;
+  background-color: white;
+  border: 2px solid #fff8ee;
   border-radius: 15px;
   margin-top: 3vh;
   width: 80%;

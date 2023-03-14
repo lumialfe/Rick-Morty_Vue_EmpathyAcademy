@@ -51,20 +51,17 @@ export default {
 }
 
 @media only screen and (max-width: 640px) {
-  .card-image {
-    max-width: 80%;
-    margin: 0 auto auto;
-  }
+  .main-card {
+    min-height: 0;
+    height: 20vh;
+    .card-name {
+      font-size: 1rem !important;
 
-  .card-name {
-    font-size: 1rem !important;
-
-    .card-text-span {
-      margin-left: 3vw;
-      font-size: 50%;
+      .card-text-span {
+        margin-left: 3vw;
+        font-size: 50%;
+      }
     }
   }
-
-
 }
 </style>

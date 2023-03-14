@@ -28,7 +28,7 @@ export default {
 <style scoped lang="scss">
 .main-card {
   background-color: #f8f8f8;
-  padding: 2.5vh 1vw;
+  padding: 6.9%;
   display: grid;
   grid-template-areas: "image" "name" "text";
   border-radius: 5px;
