@@ -21,6 +21,13 @@ export default {
 
 <style scoped lang="scss">
 button {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  z-index: 1;
+  bottom: 25px;
+  left: 25px;
+  border-radius: 500px;
   :hover {
     border-radius: 500px;
   }

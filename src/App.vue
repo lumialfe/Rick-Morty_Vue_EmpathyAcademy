@@ -50,7 +50,6 @@ export default {
   },
   data() {
     return {
-      hasNext: false,
       isVisibleMobileFilters: false,
       isVisibleScrollTop: false,
     }
