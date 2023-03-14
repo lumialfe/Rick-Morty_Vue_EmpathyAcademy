@@ -76,58 +76,32 @@ export default {
     changeMode() {
       this.$store.commit("setShowingEpisodes", !this.isShowingEpisodes);
       this.$store.commit("setResults", []);
-      this.search();
-    },
-    search() {
-      this.$store.commit("resetPage");
-
-      fetch(this.query)
-          .then(response => response.json()).then(data => {
-        this.hasNext = data.info.next != null;
-        this.$store.commit("setResults", data.results);
-      })
-          .catch(ex => {
-            console.log(ex);
-            this.$store.commit("setResults", []);
-          });
+      this.$store.dispatch("search");
     },
     scroll() {
       window.onscroll = () => {
         let isBottomOfWindowReached = (window.innerHeight + Math.ceil(window.pageYOffset)) >=
             document.body.offsetHeight - 50;
         if (isBottomOfWindowReached) {
-          if (this.hasNext) {
+          if (this.$store.getters["getHasNext"]) {
             this.$store.commit("increasePage");
-            this.loadMore();
+            this.$store.dispatch("loadMore");
           }
         }
         this.isVisibleScrollTop = window.scrollY > 400;
       }
     },
-    loadMore() {
-      fetch(this.query)
-          .then(response => response.json()).then(data => {
-        this.hasNext = data.info.next != null;
-
-        for (let i = 20 * this.page - 20; i < 20 * this.page; i++) {
-          this.$store.commit("addResult", data.results[i - 20 * (this.page - 1)]);
-        }
-      })
-          .catch(ex => {
-            console.log(ex);
-          });
-    },
     changeName(character) {
       this.$store.commit("setName", character);
-      this.debounce(this.search(), 500);
+      this.$store.dispatch("search");
     },
     changeStatus(checkboxValue) {
       this.$store.commit("setStatus", checkboxValue);
-      this.search();
+      this.$store.dispatch("search");
     },
     changeGender(checkboxValue) {
       this.$store.commit("setGender", checkboxValue);
-      this.search();
+      this.$store.dispatch("search");
     },
     changeMobileFilterVisibility() {
       document.getElementById("mobilefilters-component").style.display = this.isVisibleMobileFilters ? "none" : "block";
@@ -135,7 +109,7 @@ export default {
     },
   },
   created() {
-    this.search();
+    this.$store.dispatch("search");
   },
   mounted() {
     this.scroll();
