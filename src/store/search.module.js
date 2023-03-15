@@ -10,12 +10,6 @@ export const searchModule = {
     getters: {
         getPage(state) {
             return state.page;
-        }, getName(state) {
-            return state.name;
-        }, getGender(state) {
-            return state.gender;
-        }, getStatus(state) {
-            return state.status;
         }, getShowingEpisodes(state) {
             return state.isShowingEpisodes;
         }, getQuery(state) {
