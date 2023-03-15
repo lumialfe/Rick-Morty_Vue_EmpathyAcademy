@@ -1,4 +1,4 @@
-<!--suppress JSUnresolvedFunction -->
+<!--suppress JSUnresolvedFunction, JSUnresolvedVariable -->
 <template>
   <div class="aside__filters">
     <h2>Filters</h2>
