@@ -6,7 +6,7 @@ The idea was to create a Web Page that, through calls to an [API](https://rickan
 
 ## Deployment
 
-This page is not currently deployed on GitHub Pages.
+This page is currently deployed on [GitHub Pages](https://lumialfe.github.io/Rick-Morty_Vue_EmpathyAcademy/).
 
 ## Preview
 
