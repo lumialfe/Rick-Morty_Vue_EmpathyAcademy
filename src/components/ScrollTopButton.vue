@@ -1,6 +1,6 @@
 <template>
     <button @click="toTop">
-      <img src="../assets/media/backtop.png" width="50px" alt="Back to top button."/>
+      <img src="../assets/media/backtop.png" alt="Back to top button."/>
     </button>
 </template>
 
