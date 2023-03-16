@@ -10,7 +10,7 @@ This page is currently deployed on [GitHub Pages](https://lumialfe.github.io/Ric
 
 ## Preview
 
-![Screenshot 2023-03-10 at 10 51 03](https://user-images.githubusercontent.com/60442261/224284294-20082cce-0b39-45cf-a894-04d22813fa99.png)
+![Screenshot 2023-03-16 at 11 27 49](https://user-images.githubusercontent.com/60442261/225589240-9df8810d-6b6e-48b7-8ee2-4a761f946a6d.png)
 
 ## Project Setup
 
