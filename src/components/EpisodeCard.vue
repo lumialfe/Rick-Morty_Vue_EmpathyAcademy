@@ -25,7 +25,7 @@ export default {
   display: grid;
   grid-template-areas: "name" "text";
   border-radius: 5px;
-  min-height: 40vh;
+  min-height: 25vh;
 
   box-shadow: rgba(50, 50, 93, 0.25) 0 6px 12px -2px, rgba(0, 0, 0, 0.3) 0 3px 7px -3px;
 

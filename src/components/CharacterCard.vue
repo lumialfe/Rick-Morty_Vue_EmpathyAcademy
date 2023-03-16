@@ -4,7 +4,7 @@
     <p class="card-name">{{ character.name }}</p>
     <p class="card-text">
       <span class="card-text-span">
-              Status: {{ character.status }}
+        Status: <span :class="(character.status == 'Alive' ? 'alive' : (character.status == 'Dead' ? 'dead' : 'unknown') )">{{ character.status }}</span>
       </span>
       <span class="card-text-span">
               Gender: {{ character.gender }}
@@ -21,11 +21,15 @@
 
 <script>
 export default {
-  props: ['character']
+  props: ['character'],
 };
 </script>
 
 <style scoped lang="scss">
+.alive {
+  color: green;
+}
+
 .main-card {
   background-color: #f8f8f8;
   padding: 6.9%;
@@ -62,6 +66,16 @@ export default {
     .card-text-span {
       text-align: left;
       margin-left: 1vw;
+
+      .alive {
+        color: green;
+      }
+      .dead {
+        color: red;
+      }
+      .unknown {
+        color: #949494;
+      }
     }
   }
 }
