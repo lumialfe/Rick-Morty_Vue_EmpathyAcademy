@@ -48,7 +48,7 @@ export default {
 
   .card-name {
     grid-area: name;
-    font-size: 150%;
+    font-size: 130%;
     font-weight: bold;
     word-wrap: break-word;
 
