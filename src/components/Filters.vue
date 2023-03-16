@@ -68,6 +68,8 @@ export default {
     font-size: 125%;
     font-weight: bold;
   }
+
+  .aside__filters-columnSlider {width: 90%;margin:auto;}
 }
 
 @media only screen and (max-width: 640px) {
