@@ -105,6 +105,8 @@ export default {
     },
     changeMobileFilterVisibility() {
       document.getElementById("mobilefilters-component").style.display = this.isVisibleMobileFilters ? "none" : "block";
+      document.getElementById("columnSlider").style.display = !this.isVisibleMobileFilters ? "none" : "block";
+
       this.isVisibleMobileFilters = !this.isVisibleMobileFilters;
     },
   },

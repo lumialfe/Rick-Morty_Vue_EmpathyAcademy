@@ -12,6 +12,11 @@
         <GenderFilter v-on:clickCheckbox="changeGender(slotProps.filter)">{{ slotProps.filter }}
         </GenderFilter>
       </FilterList>
+      <div id="columnSlider">
+        <span class="aside__filters-title">Columns</span>
+        <input type="range" min="3" max="7" value="5" class="aside__filters-columnSlider"
+               v-on:input="changeColumns($event.target.value)">
+      </div>
     </div>
     <button class="aside__filters-button" v-on:click="resetAll">Clear Search</button>
     <button id="changeModeButton" v-on:click="this.$parent.changeMode">{{ buttonText }}</button>
@@ -23,6 +28,9 @@
 import FilterList from "@/components/FilterList.vue";
 import GenderFilter from "@/components/GenderFilter.vue";
 import StatusFilter from "@/components/StatusFilter.vue";
+
+import variables from '../assets/styles/_variables.scss';
+
 
 export default {
   components: {StatusFilter, GenderFilter, FilterList},
@@ -41,21 +49,25 @@ export default {
     },
     changeGender(checkboxValue) {
       this.$parent.changeGender(checkboxValue);
+    },
+    changeColumns(value) {
+      document.querySelector(':root').style.setProperty('--numberOfColumns', value);
     }
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss">
+
 .aside__filters {
   text-align: center;
   padding-top: 3vh;
   font-size: 90%;
-}
 
-.aside__filters-title {
-  font-size: 125%;
-  font-weight: bold;
+  .aside__filters-title {
+    font-size: 125%;
+    font-weight: bold;
+  }
 }
 
 @media only screen and (max-width: 640px) {

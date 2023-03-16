@@ -16,9 +16,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../assets/styles/style.css";
+
 main {
   display: grid;
-  grid-template-columns: repeat(5, minmax(50px, 1fr));
+  grid-template-columns: repeat(var(--numberOfColumns), minmax(50px, 1fr));
   grid-row-gap: 2vh;
   grid-column-gap: 1vw;
 }

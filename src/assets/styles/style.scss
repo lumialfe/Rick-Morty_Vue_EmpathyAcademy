@@ -1,6 +1,9 @@
 $light-theme-bg: #fff8ee;
 $dark-theme-bg: #18232f;
 
+:root {
+  --numberOfColumns: 5;
+}
 
 body {
   font-family: "Montserrat", sans-serif;

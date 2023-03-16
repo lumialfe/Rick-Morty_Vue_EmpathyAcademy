@@ -1,3 +1,6 @@
+:root {
+  --numberOfColumns: 5; }
+
 body {
   font-family: "Montserrat", sans-serif;
   background-color: #fff8ee;
