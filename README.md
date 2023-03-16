@@ -2,7 +2,7 @@
 
 This is the third challenge of the Frontend Path of the Acadamy Program of [Empathy.co](https://empathy.co/). In it we tried to replicate the page done for [Exercise 1](https://github.com/lumialfe/Rick-Morty_EmpathyAcademy) using the Framework [Vue 3](https://vuejs.org/) and [VueX](https://vuex.vuejs.org/).
 
-The idea was to create a Web Page that, through calls to an [API](https://rickandmortyapi.com/), allowed the user to search for different characters, displaying their images and information in a responsive fashion.
+The idea was to create a Web Page that, through calls to an [API](https://rickandmortyapi.com/), allowed the user to search for different characters and episodes, displaying their information in a responsive fashion.
 
 ## Deployment
 
