@@ -1,4 +1,6 @@
-export const resultsModule = {
+import {Module} from "vuex";
+
+export const resultsModule:Module<any, any> = {
     namespaced: true,
     state: {
         results: [],

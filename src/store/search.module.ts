@@ -1,4 +1,6 @@
-export const searchModule = {
+import {Module} from "vuex";
+
+export const searchModule:Module<any, any> = {
     namespaced: true,
     state: {
         page: 1,
