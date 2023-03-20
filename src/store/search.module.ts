@@ -25,11 +25,14 @@ export const searchModule:Module<State, ComponentCustomProperties> = {
         }, getShowingEpisodes(state:State):boolean {
             return state.isShowingEpisodes;
         }, getQuery(state:State):string {
-            let baseURL:String = 'https://rickandmortyapi.com/api/';
-            baseURL += (state.isShowingEpisodes ? 'episode/' : 'character/'); // Check if characters or episodes
-            return baseURL + "?page=" + state.page + // Base URL + Page Number
+            let URL:string =
+                'https://rickandmortyapi.com/api/' + // Base URL
+                (state.isShowingEpisodes ? 'episode/' : 'character/') + // Check if characters or episodes
+                "?page=" + state.page + // Base URL + Page Number
                 (state.name != "" ? ('&name=' + state.name) : "") + // Name, if any
                 (!state.isShowingEpisodes ? (state.status != "" ? ("&status=" + state.status) : "") + (state.gender != "" ? ("&gender=" + state.gender) : "") : ""); // If characters, check filters
+
+            return URL;
         },
     },
     mutations: {
