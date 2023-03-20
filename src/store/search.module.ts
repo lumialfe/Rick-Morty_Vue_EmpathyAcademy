@@ -33,17 +33,17 @@ export const searchModule:Module<State, ComponentCustomProperties> = {
         },
     },
     mutations: {
-        increasePage(state:State) {
+        increasePage(state:State):void {
             state.page++;
-        }, resetPage(state:State) {
+        }, resetPage(state:State):void {
             state.page = 1;
-        }, setName(state:State, value:string) {
+        }, setName(state:State, value:string):void {
             state.name = value;
-        }, setGender(state:State, value:string) {
+        }, setGender(state:State, value:string):void {
             state.gender = value;
-        }, setStatus(state:State, value:string) {
+        }, setStatus(state:State, value:string):void {
             state.status = value;
-        }, setShowingEpisodes(state:State, value:boolean) {
+        }, setShowingEpisodes(state:State, value:boolean):void {
             state.isShowingEpisodes = value;
         },
     },
