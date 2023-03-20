@@ -12,33 +12,33 @@ interface ComponentCustomProperties {
 export const resultsModule:Module<State, ComponentCustomProperties> = {
     namespaced: true,
     state: {
-        results: [],
-        hasNext: false,
+        results: [], // Array containing the different results returned by the api.
+        hasNext: false, // Checks if current search has more results to show.
     },
     actions: {
         async search({commit, rootGetters}) {
-            commit("results/resetPage", null, {root: true});
+            commit("results/resetPage", null, {root: true}); // With a new search we reset the current page number to 1.
 
             fetch(rootGetters["search/getQuery"])
                 .then(response => response.json()).then(data => {
-                commit("setHasNext", data.info.next != null);
-                commit("setResults", data.results);
+                commit("setHasNext", data.info.next != null); // Check if the search has more pages.
+                commit("setResults", data.results); // We overwrite the previous results with the new ones.
             })
                 .catch(ex => {
-                    console.log(ex);
-                    commit("setResults", []);
+                    console.log(ex); // Log Exception on console.
+                    commit("setResults", []); // Reset results array to show "No Results" page
                 });
         }, async loadMore({commit, rootGetters}) {
             fetch(rootGetters["search/getQuery"])
                 .then(response => response.json()).then(data => {
-                commit("setHasNext", data.info.next != null);
-                let page = rootGetters["search/getPage"];
-                for (let i = 20 * page - 20; i < 20 * page; i++) {
-                    commit("addResult", data.results[i - 20 * (page - 1)]);
+                commit("setHasNext", data.info.next != null); // Check if the search has more pages.
+                let page = rootGetters["search/getPage"]; // Get current page
+                for (let i = 20 * page - 20; i < 20 * page; i++) { // 20 is the number of results per page.
+                    commit("addResult", data.results[i - 20 * (page - 1)]); // We append results to the ones already showing.
                 }
             })
                 .catch(ex => {
-                    console.log(ex);
+                    console.log(ex); // Log Exception on console.
                 });
         },
     },
