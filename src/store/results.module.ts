@@ -1,6 +1,15 @@
-import {Module} from "vuex";
+import {Commit, Dispatch, Module, Store} from "vuex";
 
-export const resultsModule:Module<any, any> = {
+interface State {
+    results : string[],
+    hasNext: boolean,
+}
+
+interface ComponentCustomProperties {
+    $store: Store<State>|Store<Commit>|Store<Dispatch>
+}
+
+export const resultsModule:Module<State, ComponentCustomProperties> = {
     namespaced: true,
     state: {
         results: [],
@@ -34,18 +43,18 @@ export const resultsModule:Module<any, any> = {
         },
     },
     getters: {
-        getResults(state) {
+        getResults(state:State):string[] {
             return state.results;
-        }, getHasNext(state) {
+        }, getHasNext(state:State):boolean {
             return state.hasNext;
         }
     },
     mutations: {
-        setResults(state, value) {
+        setResults(state:State, value:string[]) {
             state.results = value;
-        }, addResult(state, value) {
+        }, addResult(state:State, value:string) {
             state.results.push(value);
-        }, setHasNext(state, value) {
+        }, setHasNext(state:State, value:boolean) {
             state.hasNext = value;
         }
     },

@@ -1,6 +1,16 @@
-import {Module} from "vuex";
+import {Commit, Dispatch, Module, Store} from "vuex";
+interface State {
+    gender: string,
+    status: string,
+    name: string,
+    page: number,
+    isShowingEpisodes: boolean,
+}
+interface ComponentCustomProperties {
+    $store: Store<State>|Store<Commit>|Store<Dispatch>
+}
 
-export const searchModule:Module<any, any> = {
+export const searchModule:Module<State, ComponentCustomProperties> = {
     namespaced: true,
     state: {
         page: 1,
@@ -10,12 +20,12 @@ export const searchModule:Module<any, any> = {
         isShowingEpisodes: false,
     },
     getters: {
-        getPage(state) {
+        getPage(state:State):number {
             return state.page;
-        }, getShowingEpisodes(state) {
+        }, getShowingEpisodes(state:State):boolean {
             return state.isShowingEpisodes;
-        }, getQuery(state) {
-            let baseURL = 'https://rickandmortyapi.com/api/';
+        }, getQuery(state:State):string {
+            let baseURL:String = 'https://rickandmortyapi.com/api/';
             baseURL += (state.isShowingEpisodes ? 'episode/' : 'character/'); // Check if characters or episodes
             return baseURL + "?page=" + state.page + // Base URL + Page Number
                 (state.name != "" ? ('&name=' + state.name) : "") + // Name, if any
@@ -23,17 +33,17 @@ export const searchModule:Module<any, any> = {
         },
     },
     mutations: {
-        increasePage(state) {
+        increasePage(state:State) {
             state.page++;
-        }, resetPage(state) {
+        }, resetPage(state:State) {
             state.page = 1;
-        }, setName(state, value) {
+        }, setName(state:State, value:string) {
             state.name = value;
-        }, setGender(state, value) {
+        }, setGender(state:State, value:string) {
             state.gender = value;
-        }, setStatus(state, value) {
+        }, setStatus(state:State, value:string) {
             state.status = value;
-        }, setShowingEpisodes(state, value) {
+        }, setShowingEpisodes(state:State, value:boolean) {
             state.isShowingEpisodes = value;
         },
     },
