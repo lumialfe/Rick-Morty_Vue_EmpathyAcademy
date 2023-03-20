@@ -16,7 +16,7 @@ export const resultsModule:Module<State, ComponentCustomProperties> = {
         hasNext: false, // Checks if current search has more results to show.
     },
     actions: {
-        async search({commit, rootGetters}) {
+        async search({commit, rootGetters}):Promise<void> {
             commit("results/resetPage", null, {root: true}); // With a new search we reset the current page number to 1.
 
             fetch(rootGetters["search/getQuery"])
@@ -28,7 +28,7 @@ export const resultsModule:Module<State, ComponentCustomProperties> = {
                     console.log(ex); // Log Exception on console.
                     commit("setResults", []); // Reset results array to show "No Results" page
                 });
-        }, async loadMore({commit, rootGetters}) {
+        }, async loadMore({commit, rootGetters}):Promise<void> {
             fetch(rootGetters["search/getQuery"])
                 .then(response => response.json()).then(data => {
                 commit("setHasNext", data.info.next != null); // Check if the search has more pages.
@@ -42,6 +42,9 @@ export const resultsModule:Module<State, ComponentCustomProperties> = {
                 });
         },
         //TODO sort by name functionality
+        sortByName():void {
+
+        }
     },
     getters: {
         getResults(state:State):string[] {
