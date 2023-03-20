@@ -41,6 +41,7 @@ export const resultsModule:Module<State, ComponentCustomProperties> = {
                     console.log(ex); // Log Exception on console.
                 });
         },
+        //TODO sort by name functionality
     },
     getters: {
         getResults(state:State):string[] {
