@@ -1,22 +1,22 @@
 import {Commit, Dispatch, Module, Store} from "vuex";
 
 interface State {
-    results : string[],
+    results: string[],
     hasNext: boolean,
 }
 
 interface ComponentCustomProperties {
-    $store: Store<State>|Store<Commit>|Store<Dispatch>
+    $store: Store<State> | Store<Commit> | Store<Dispatch>
 }
 
-export const resultsModule:Module<State, ComponentCustomProperties> = {
+export const resultsModule: Module<State, ComponentCustomProperties> = {
     namespaced: true,
     state: {
         results: [], // Array containing the different results returned by the api.
         hasNext: false, // Checks if current search has more results to show.
     },
     actions: {
-        async search({commit, rootGetters}):Promise<void> {
+        async search({commit, rootGetters}): Promise<void> {
             commit("results/resetPage", null, {root: true}); // With a new search we reset the current page number to 1.
 
             fetch(rootGetters["search/getQuery"])
@@ -28,7 +28,7 @@ export const resultsModule:Module<State, ComponentCustomProperties> = {
                     console.log(ex); // Log Exception on console.
                     commit("setResults", []); // Reset results array to show "No Results" page
                 });
-        }, async loadMore({commit, rootGetters}):Promise<void> {
+        }, async loadMore({commit, rootGetters}): Promise<void> {
             fetch(rootGetters["search/getQuery"])
                 .then(response => response.json()).then(data => {
                 commit("setHasNext", data.info.next != null); // Check if the search has more pages.
@@ -42,23 +42,23 @@ export const resultsModule:Module<State, ComponentCustomProperties> = {
                 });
         },
         //TODO sort by name functionality
-        sortByName():void {
+        sortByName(): void {
 
         }
     },
     getters: {
-        getResults(state:State):string[] {
+        getResults(state: State): string[] {
             return state.results;
-        }, getHasNext(state:State):boolean {
+        }, getHasNext(state: State): boolean {
             return state.hasNext;
         }
     },
     mutations: {
-        setResults(state:State, value:string[]) {
+        setResults(state: State, value: string[]) {
             state.results = value;
-        }, addResult(state:State, value:string) {
+        }, addResult(state: State, value: string) {
             state.results.push(value);
-        }, setHasNext(state:State, value:boolean) {
+        }, setHasNext(state: State, value: boolean) {
             state.hasNext = value;
         }
     },
