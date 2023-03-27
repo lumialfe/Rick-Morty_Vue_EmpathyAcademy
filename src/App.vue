@@ -31,15 +31,17 @@
 </template>
 
 <!--suppress JSDeprecatedSymbols -->
-<script>
+<script lang="ts">
 import SearchBar from "@/components/SearchBar.vue";
 import Filters from "@/components/Filters.vue";
 import CharacterGrid from "@/components/CardGrid.vue";
 import CharacterCard from "@/components/CharacterCard.vue";
 import ScrollTopButton from "@/components/ScrollTopButton.vue";
 import EpisodeCard from "@/components/EpisodeCard.vue";
+import {store} from "./store/store";
+import {defineComponent} from "vue";
 
-export default {
+export default defineComponent({
   components: {
     EpisodeCard,
     CharacterCard,
@@ -60,63 +62,72 @@ export default {
   },
   computed: {
     results() {
-      return this.$store.getters['results/getResults'];
+      return store.getters['results/getResults'];
     },
     isShowingEpisodes() {
-      return this.$store.getters["search/getShowingEpisodes"];
+      return store.getters["search/getShowingEpisodes"];
     },
     page() {
-      return this.$store.getters["search/getPage"];
+      return store.getters["search/getPage"];
     },
     query() {
-      return this.$store.getters["search/getQuery"];
+      return store.getters["search/getQuery"];
     },
+    computed() {
+      return this;
+    }
   },
   methods: {
     changeMode() {
-      this.$store.commit("search/setShowingEpisodes", !this.isShowingEpisodes);
-      this.$store.commit("results/setResults", []);
-      this.$store.dispatch("results/search");
+      store.commit("search/setShowingEpisodes", !this.isShowingEpisodes);
+      store.commit("results/setResults", []);
+      store.dispatch("results/search");
     },
     scroll() {
       window.onscroll = () => {
         let isBottomOfWindowReached = (window.innerHeight + Math.ceil(window.pageYOffset)) >=
             document.body.offsetHeight - 50;
         if (isBottomOfWindowReached) {
-          if (this.$store.getters["results/getHasNext"]) {
-            this.$store.commit("search/increasePage");
-            this.$store.dispatch("results/loadMore");
+          if (store.getters["results/getHasNext"]) {
+            store.commit("search/increasePage");
+            store.dispatch("results/loadMore");
           }
         }
         this.isVisibleScrollTop = window.scrollY > 400;
       }
     },
-    changeName(character) {
-      this.$store.commit("search/setName", character);
-      this.$store.dispatch("results/search");
+    changeName(character: string) {
+      store.commit("search/setName", character);
+      store.dispatch("results/search");
     },
-    changeStatus(checkboxValue) {
-      this.$store.commit("search/setStatus", checkboxValue);
-      this.$store.dispatch("results/search");
+    changeStatus(checkboxValue: string) {
+      store.commit("search/setStatus", checkboxValue);
+      store.dispatch("results/search");
     },
-    changeGender(checkboxValue) {
-      this.$store.commit("search/setGender", checkboxValue);
-      this.$store.dispatch("results/search");
+    changeGender(checkboxValue: string) {
+      store.commit("search/setGender", checkboxValue);
+      store.dispatch("results/search");
     },
     changeMobileFilterVisibility() {
-      document.getElementById("mobilefilters-component").style.display = this.isVisibleMobileFilters ? "none" : "block";
-      document.getElementById("columnSlider").style.display = !this.isVisibleMobileFilters ? "none" : "block";
 
+      let comp = document.getElementById("mobilefilters-component");
+      if (comp != null) {
+        comp.style.display = this.isVisibleMobileFilters ? "none" : "block";
+      }
+      comp = document.getElementById("columnSlider");
+      if (comp != null) {
+        comp.style.display = !this.isVisibleMobileFilters ? "none" : "block";
+      }
       this.isVisibleMobileFilters = !this.isVisibleMobileFilters;
     },
   },
   created() {
-    this.$store.dispatch("results/search");
+    store.dispatch("results/search");
   },
   mounted() {
-    this.scroll();
+    scroll();
   }
-}
+});
 </script>
 
 <style lang="scss">
