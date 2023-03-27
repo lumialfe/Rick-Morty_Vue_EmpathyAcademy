@@ -4,15 +4,16 @@
   </main>
 </template>
 
-<script>
+<script lang="ts">
 
 import CharacterCard from "@/components/CharacterCard.vue";
+import {defineComponent} from "vue";
 
-export default {
+export default defineComponent({
   name: "CharacterGrid",
   components: {CharacterCard},
   props: ["characters"],
-}
+});
 </script>
 
 <style scoped lang="scss">

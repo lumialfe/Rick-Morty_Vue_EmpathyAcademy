@@ -12,10 +12,12 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import {defineComponent} from "vue";
+
+export default defineComponent({
   props: ['episode']
-};
+});
 </script>
 
 <style scoped lang="scss">
@@ -54,6 +56,7 @@ export default {
   .main-card {
     min-height: 0;
     height: 20vh;
+
     .card-name {
       font-size: 1rem !important;
 

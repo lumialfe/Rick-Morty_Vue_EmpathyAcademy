@@ -8,12 +8,12 @@
     <button class="mobilefilters-button" v-on:click="changeMobileFilterVisibility">
       Filters
     </button>
-    <Filters id="mobilefilters-component" v-bind:filters="filters"></Filters>
+    <Filters id="mobilefilters-component" v-bind:filters="filters" v-bind:parent="this"></Filters>
   </div>
   <div class="body-main">
     <aside>
-      <Filters v-bind:filters="filters"></Filters>
-      <ScrollTopButton v-if="isVisibleScrollTop"></ScrollTopButton>
+      <Filters v-bind:filters="filters" v-bind:parent="this"></Filters>
+      <ScrollTopButton v-if="isVisibleScrollTop" v-bind:parent="this"></ScrollTopButton>
     </aside>
     <span class="body-main-noresults"
           v-if="results.length == 0">Oops! Nothing to see here. <br/> Please try again.</span>
@@ -125,7 +125,7 @@ export default defineComponent({
     store.dispatch("results/search");
   },
   mounted() {
-    scroll();
+    this.scroll();
   }
 });
 </script>

@@ -23,38 +23,37 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 
 import FilterList from "@/components/FilterList.vue";
 import GenderFilter from "@/components/GenderFilter.vue";
 import StatusFilter from "@/components/StatusFilter.vue";
+import {defineComponent} from "vue";
+import {store} from "@/store/store";
 
-import variables from '../assets/styles/_variables.scss';
-
-
-export default {
+export default defineComponent({
   components: {StatusFilter, GenderFilter, FilterList},
-  props: ['filters'],
+  props: ['filters', 'parent'],
   computed: {
     buttonText() {
-      return "Show " + (this.$store.getters["getShowingEpisodes"] ? "Characters" : "Episodes");
+      return "Show " + (store.getters["getShowingEpisodes"] ? "Characters" : "Episodes");
     }
   },
   methods: {
     resetAll() {
       location.reload();
     },
-    changeStatus(checkboxValue) {
-      this.$parent.changeStatus(checkboxValue);
+    changeStatus(checkboxValue: string) {
+      this.parent.changeStatus(checkboxValue);
     },
-    changeGender(checkboxValue) {
-      this.$parent.changeGender(checkboxValue);
+    changeGender(checkboxValue: string) {
+      this.parent.changeGender(checkboxValue);
     },
-    changeColumns(value) {
-      document.querySelector(':root').style.setProperty('--numberOfColumns', value);
+    changeColumns(value: string) {
+      document.documentElement.style.setProperty("--numberOfColumns", value);
     }
   }
-}
+});
 </script>
 
 <style lang="scss">
@@ -69,7 +68,10 @@ export default {
     font-weight: bold;
   }
 
-  .aside__filters-columnSlider {width: 90%;margin:auto;}
+  .aside__filters-columnSlider {
+    width: 90%;
+    margin: auto;
+  }
 }
 
 @media only screen and (max-width: 640px) {

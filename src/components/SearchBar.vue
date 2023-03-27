@@ -2,13 +2,15 @@
   <label for="searchBar"></label>
   <input id="searchBar" class="header-searchbar" type="text" placeholder="Search..."
          onfocus="this.placeholder=''" onblur="this.placeholder='Search...'"
-          v-on:input="$emit('search',$event.target.value)"/>
+         v-on:input="$emit('search',$event.target.value)"/>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import {defineComponent} from "vue";
+
+export default defineComponent({
   name: "SearchBar"
-}
+});
 </script>
 
 <style scoped lang="scss">

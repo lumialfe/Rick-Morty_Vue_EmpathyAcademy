@@ -1,4 +1,5 @@
 import {Commit, Dispatch, Module, Store} from "vuex";
+
 interface State {
     gender: string,
     status: string,
@@ -6,11 +7,12 @@ interface State {
     page: number,
     isShowingEpisodes: boolean,
 }
+
 interface ComponentCustomProperties {
-    $store: Store<State>|Store<Commit>|Store<Dispatch>
+    $store: Store<State> | Store<Commit> | Store<Dispatch>
 }
 
-export const searchModule:Module<State, ComponentCustomProperties> = {
+export const searchModule: Module<State, ComponentCustomProperties> = {
     namespaced: true,
     state: {
         page: 1, // Current page number of the search.
@@ -20,30 +22,30 @@ export const searchModule:Module<State, ComponentCustomProperties> = {
         isShowingEpisodes: false, // Is the app showing episodes or characters?
     },
     getters: {
-        getPage(state:State):number {
+        getPage(state: State): number {
             return state.page;
-        }, getShowingEpisodes(state:State):boolean {
+        }, getShowingEpisodes(state: State): boolean {
             return state.isShowingEpisodes;
-        }, getQuery(state:State):string {
+        }, getQuery(state: State): string {
             return 'https://rickandmortyapi.com/api/' + // Base URL
-                    (state.isShowingEpisodes ? 'episode/' : 'character/') + // Check if characters or episodes
-                    "?page=" + state.page + // Base URL + Page Number
-                    (state.name != "" ? ('&name=' + state.name) : "") + // Name, if any
-                    (!state.isShowingEpisodes ? (state.status != "" ? ("&status=" + state.status) : "") + (state.gender != "" ? ("&gender=" + state.gender) : "") : ""); // If characters, check filters
+                (state.isShowingEpisodes ? 'episode/' : 'character/') + // Check if characters or episodes
+                "?page=" + state.page + // Base URL + Page Number
+                (state.name != "" ? ('&name=' + state.name) : "") + // Name, if any
+                (!state.isShowingEpisodes ? (state.status != "" ? ("&status=" + state.status) : "") + (state.gender != "" ? ("&gender=" + state.gender) : "") : ""); // If characters, check filters
         },
     },
     mutations: {
-        increasePage(state:State):void {
+        increasePage(state: State): void {
             state.page++;
-        }, resetPage(state:State):void {
+        }, resetPage(state: State): void {
             state.page = 1;
-        }, setName(state:State, value:string):void {
+        }, setName(state: State, value: string): void {
             state.name = value;
-        }, setGender(state:State, value:string):void {
+        }, setGender(state: State, value: string): void {
             state.gender = value;
-        }, setStatus(state:State, value:string):void {
+        }, setStatus(state: State, value: string): void {
             state.status = value;
-        }, setShowingEpisodes(state:State, value:boolean):void {
+        }, setShowingEpisodes(state: State, value: boolean): void {
             state.isShowingEpisodes = value;
         },
     },

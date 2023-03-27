@@ -5,9 +5,8 @@
   </label>
 </template>
 
-<script>
-export default {
-}
+<script lang="ts">
+export default {}
 </script>
 
 <style scoped lang="scss">

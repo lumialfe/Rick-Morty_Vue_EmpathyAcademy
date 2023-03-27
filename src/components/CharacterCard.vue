@@ -4,7 +4,10 @@
     <p class="card-name">{{ character.name }}</p>
     <p class="card-text">
       <span class="card-text-span">
-        Status: <span :class="(character.status == 'Alive' ? 'alive' : (character.status == 'Dead' ? 'dead' : 'unknown') )">{{ character.status }}</span>
+        Status: <span
+          :class="(character.status == 'Alive' ? 'alive' : (character.status == 'Dead' ? 'dead' : 'unknown') )">{{
+          character.status
+        }}</span>
       </span>
       <span class="card-text-span">
               Gender: {{ character.gender }}
@@ -19,10 +22,12 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import {defineComponent} from "vue";
+
+export default defineComponent({
   props: ['character'],
-};
+});
 </script>
 
 <style scoped lang="scss">
@@ -70,9 +75,11 @@ export default {
       .alive {
         color: green;
       }
+
       .dead {
         color: red;
       }
+
       .unknown {
         color: #949494;
       }
